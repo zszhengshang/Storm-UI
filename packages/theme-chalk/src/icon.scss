@@ -1,0 +1,20 @@
+@use "./mixins/mixins.scss" as *;
+
+@keyframes rotating {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+@include b(icon) {
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  @include when(loading) {
+    animation: rotating 2s linear infinite;
+  }
+}

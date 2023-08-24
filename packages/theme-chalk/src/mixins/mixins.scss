@@ -1,0 +1,45 @@
+@use "config" as *; // @import可能有多次引用的问题
+@forward "config"; // 再把config导出
+
+// .s-button
+@mixin b($block) {
+  $B: $namespace + "-" + $block;
+  .#{$B} {
+    // @include后 样式会替换@content
+    @content;
+  }
+}
+
+// s-button.is-xxx
+@mixin when($state) {
+  // 输出到全局作用域
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}
+
+// s-button__header
+@mixin e($element) {
+  @at-root {
+    #{& + $element-separator + $element} {
+      @content;
+    }
+  }
+}
+
+// s-button--primary
+@mixin m($modifier) {
+  @at-root {
+    #{& + $modifier-separator + $modifier} {
+      @content;
+    }
+  }
+}
+
+@mixin button-variant($color, $border-color, $background-color) {
+  color: $color;
+  border-color: $border-color;
+  background-color: $background-color;
+}

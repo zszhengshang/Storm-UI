@@ -1,21 +1,23 @@
 <template>
   <label :class="[
     bem.b(),
-    bem.is('disabled', disabled),
-    bem.is('checked', modelValue === label)
+    bem.is('disabled', isDisabled),
+    bem.is('checked', model === label)
   ]">
     <span :class="[
       bem.e('input'),
-      bem.is('disabled', disabled),
-      bem.is('checked', modelValue === label)
+      bem.is('disabled', isDisabled),
+      bem.is('checked', model === label)
     ]">
       <input
+        ref="radioRef"
         type="radio"
         :class="bem.e('origin')"
-        v-model="modelValue"
+        v-model="model"
         :value="label"
-        :name="name"
-        :disabled="disabled"
+        :name="name || radioGroup?.name"
+        :disabled="isDisabled"
+        @change="handleChange"
       />
       <span :class="bem.e('inner')"></span>
     </span>
@@ -33,7 +35,10 @@ import { radioProps, radioEmits } from './radio';
 import { useRadio } from './use-radio'
 defineOptions({ name: 'SRadio' })
 const props = defineProps(radioProps)
-defineEmits(radioEmits)
+const emit = defineEmits(radioEmits)
 
 const bem = createNamespace('radio')
+const { radioRef, model, isDisabled, radioGroup } = useRadio(props)
+
+const handleChange = () => emit('change', model.value)
 </script>

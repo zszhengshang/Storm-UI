@@ -1,7 +1,7 @@
 import { ExtractPropTypes, InjectionKey } from "vue"
-import { RadioProps, radioEmits } from "./radio"
+import { radioEmits } from "./radio"
 
-interface RadioGroupContext extends RadioProps {
+interface RadioGroupContext extends RadioGroupProps {
   changeEvent: (val: RadioGroupProps['modelValue']) => void
 }
 export const radioGroupProps = {

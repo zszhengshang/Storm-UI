@@ -2,10 +2,14 @@
 import { DefineComponent, Plugin } from "vue"
 
 type SFCWithInstall<T> = T & Plugin
-export function withInstall<T extends DefineComponent<{}, {}, any>>(comp: T) {
-  (comp as SFCWithInstall<T>).install = function (app) {
-    const { name } = comp as { name: string }
-    app.component(name, comp)
+export const withInstall = <T, E extends Record<string, any>>(
+  main: T, extra?: E
+) => {
+  (main as SFCWithInstall<T>).install = (app): void => {
+    const comps = [main, ...Object.values(extra ?? {})]
+    for (const comp of comps) {
+      app.component(comp.name, comp)
+    }
   }
-  return comp as SFCWithInstall<T>
+  return main as SFCWithInstall<T> & E
 }

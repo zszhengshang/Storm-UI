@@ -49,7 +49,7 @@ defineOptions({
   name: 'SButton',
   inheritAttrs: false
 })
-const props = defineProps(buttonProps)
+defineProps(buttonProps)
 const emit = defineEmits(buttonEmits)
 
 const bem = createNamespace('button')

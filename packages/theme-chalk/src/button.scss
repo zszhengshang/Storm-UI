@@ -1,0 +1,118 @@
+@use "./mixins//mixins.scss" as *;
+@use "common/var.scss" as *;
+
+@include b(button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  height: 32px;
+  line-height: 1;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #606266;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  background-color: $color-white;
+  outline: none;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  & + .s-button {
+    margin-left: 12px;
+  }
+  [class*="s-icon"] + span {
+    margin-left: 6px;
+  }
+  span {
+    display: inline-flex;
+    align-items: center;
+  }
+  @include m(small) {
+    height: 24px;
+    padding: 5px 11px;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+  @include m(large) {
+    height: 40px;
+    padding: 12px 19px;
+  }
+  @include when(disabled) {
+    &,
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+      @include button-variant(#a8abb2, #e4e7ed, #ffffff);
+    }
+  }
+  @include when(loading) {
+    position: relative;
+    pointer-events: none;
+    // -1px 遮住边框
+    &:before {
+      content: "";
+      position: absolute;
+      left: -1px;
+      right: -1px;
+      top: -1px;
+      bottom: -1px;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+  @include when(round) {
+    border-radius: 20px;
+  }
+  @include m(primary) {
+    @include button-variant($color-white, $color-primary, $color-primary);
+    @include when(disabled) {
+      &,
+      &:hover,
+      &:focus {
+        @include button-variant($color-white, #a0cfff, #a0cfff);
+      }
+    }
+  }
+  @include m(success) {
+    @include button-variant($color-white, $color-success, $color-success);
+    @include when(disabled) {
+      &,
+      &:hover,
+      &:focus {
+        @include button-variant($color-white, #b3e19d, #b3e19d);
+      }
+    }
+  }
+  @include m(warning) {
+    @include button-variant($color-white, $color-warning, $color-warning);
+    @include when(disabled) {
+      &,
+      &:hover,
+      &:focus {
+        @include button-variant($color-white, #f3d19e, #f3d19e);
+      }
+    }
+  }
+  @include m(danger) {
+    @include button-variant($color-white, $color-danger, $color-danger);
+    @include when(disabled) {
+      &,
+      &:hover,
+      &:focus {
+        @include button-variant($color-white, #fab6b6, #fab6b6);
+      }
+    }
+  }
+  @include m(info) {
+    @include button-variant($color-white, $color-info, $color-info);
+    @include when(disabled) {
+      &,
+      &:hover,
+      &:focus {
+        @include button-variant($color-white, #c8c9cc, #c8c9cc);
+      }
+    }
+  }
+}

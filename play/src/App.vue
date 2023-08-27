@@ -26,10 +26,18 @@
     label="selected and disabled"
   >Option C</s-radio>
   <s-radio-group v-model="radioGroup">
-    <s-radio :label="1" disabled>Option A</s-radio>
+    <s-radio
+      :label="1"
+      disabled
+    >Option A</s-radio>
     <s-radio :label="2">Option B</s-radio>
     <s-radio :label="3">Option C</s-radio>
   </s-radio-group>
+  <s-checkbox v-model="checked1">options1</s-checkbox>
+  <s-checkbox
+    v-model="checked2"
+    label="option2"
+  >options2</s-checkbox>
 </template>
 
 <script setup lang="ts">
@@ -37,4 +45,6 @@ import { ref } from 'vue';
 import { AddCircle } from '@vicons/ionicons5'
 const radio = ref('selected and disabled')
 const radioGroup = ref(1)
+const checked1 = ref(true)
+const checked2 = ref(false)
 </script>

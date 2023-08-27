@@ -1,0 +1,25 @@
+@use "./mixins//mixins.scss" as *;
+@use "./common/var.scss" as *;
+
+@include b(checkbox) {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  margin-right: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  color: $color-text;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  @include e(input) {
+    display: inline-flex;
+    vertical-align: middle;
+  }
+  @include e(label) {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    padding-left: 8px;
+  }
+}

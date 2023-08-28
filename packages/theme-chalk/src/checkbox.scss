@@ -15,11 +15,73 @@
   @include e(input) {
     display: inline-flex;
     vertical-align: middle;
+    @include when(checked) {
+      .#{$namespace}-radio__inner {
+        border-color: $color-primary;
+        background-color: $color-primary;
+        &:after {
+          border-color: $color-white;
+          transform: rotate(45deg) scaleY(1);
+        }
+      }
+      & + .#{$namespace}-radio__label {
+        color: $color-primary;
+      }
+    }
+    @include when(disabled) {
+      .#{$namespace}-checkbox__inner {
+        border-color: $color-border-disabled;
+        background-color: $color-bg-disabled;
+      }
+      & + span.#{$namespace}-checkbox__label {
+        color: $color-placeholder-text;
+      }
+      &.is-checked {
+        .#{$namespace}-checkbox__inner {
+          &::after {
+            background-color: $color-placeholder-text;
+          }
+        }
+      }
+    }
+  }
+  @include e(origin) {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    opacity: 0;
+  }
+  @include e(inner) {
+    position: relative;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    border: 1px solid #dcdfe6;
+    background-color: $color-white;
+    &:after {
+      content: "";
+      position: absolute;
+      top: 1px;
+      left: 4px;
+      width: 3px;
+      height: 7px;
+      border: 1px solid transparent;
+      border-left: 0;
+      border-top: 0;
+      transform-origin: center;
+      transform: rotate(45deg) scaleY(0);
+      transition: transform 0.15s ease-in 0.05s;
+    }
   }
   @include e(label) {
     display: inline-block;
     vertical-align: middle;
     line-height: 1;
     padding-left: 8px;
+  }
+  @include when(disabled) {
+    cursor: not-allowed;
   }
 }

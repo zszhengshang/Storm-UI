@@ -31,14 +31,12 @@
       }
     }
     @include when(disabled) {
-      cursor: not-allowed;
       .#{$namespace}-radio__inner {
         border-color: $color-border-disabled;
         background-color: $color-bg-disabled;
       }
       & + span.#{$namespace}-radio__label {
         color: $color-placeholder-text;
-        cursor: not-allowed;
       }
       &.is-checked {
         .#{$namespace}-radio__inner {
@@ -51,10 +49,8 @@
   }
   @include e(origin) {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    width: 0;
+    height: 0;
     z-index: -1;
     opacity: 0;
   }
@@ -82,5 +78,8 @@
   @include e(label) {
     vertical-align: middle;
     padding-left: 8px;
+  }
+  @include when(disabled) {
+    cursor: not-allowed;
   }
 }

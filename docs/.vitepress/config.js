@@ -1,19 +1,16 @@
 module.exports = {
-  ttile: 'STORM-UI',
-  description: 'storm-ui UI',
+  ttile: 'Storm-UI',
+  description: 'Storm-UI',
   themeConfig: {
-    lastUpdated: '最后更新时间',
-    docsDir: 'docs',
-    editLinks: true,
-    editLinksText: '编辑此网站',
-    repo: 'https://gitee.com/login',
+    siteTitle: false,
+    logo: "/logo.jpg",
     footer: {
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2023-present Zai Xiao'
     },
     nav: [
       { text: '指南', link: '/guide/installation', activeMatch: '/guide' },
-      { text: '组件', link: '/component/icon', activeMatch: '/component' },
+      { text: '组件', link: '/component/button', activeMatch: '/component' },
     ],
     sidebar: {
       '/guide/': [

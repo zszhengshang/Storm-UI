@@ -1,17 +1,22 @@
 <template>
   <label :class="[
     bem.b(),
-    bem.is('disabled', disabled),
-    bem.is('checked', checked)
+    bem.is('disabled', isDisabled),
+    bem.is('checked', isChecked)
   ]">
-    <span :class="bem.e('input')">
+    <span :class="[
+      bem.e('input'),
+      bem.is('disabled', isDisabled),
+      bem.is('checked', isChecked)
+    ]">
       <input
         type="checkbox"
         :class="bem.e('origin')"
-        v-model="modelValue"
-        value="label"
-        :disabled="disabled"
+        v-model="model"
+        :value="label"
+        :disabled="isDisabled"
         :name="name"
+        @change="handleChange"
       >
       <span :class="bem.e('inner')"></span>
     </span>
@@ -26,9 +31,11 @@
 <script setup lang="ts">
 import { createNamespace } from '@storm/utils/create';
 import { checkboxEmits, checkboxProps } from './checkbox';
+import { useCheckbox } from './use-checkbox';
 defineOptions({ name: 'SCheckbox' })
-defineProps(checkboxProps)
+const props = defineProps(checkboxProps)
 defineEmits(checkboxEmits)
 
 const bem = createNamespace('checkbox')
+const { model, isChecked, isDisabled, handleChange } = useCheckbox(props)
 </script>

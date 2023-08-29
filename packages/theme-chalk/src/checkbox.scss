@@ -16,7 +16,7 @@
     display: inline-flex;
     vertical-align: middle;
     @include when(checked) {
-      .#{$namespace}-radio__inner {
+      .#{$namespace}-checkbox__inner {
         border-color: $color-primary;
         background-color: $color-primary;
         &:after {
@@ -24,7 +24,7 @@
           transform: rotate(45deg) scaleY(1);
         }
       }
-      & + .#{$namespace}-radio__label {
+      & + .#{$namespace}-checkbox__label {
         color: $color-primary;
       }
     }

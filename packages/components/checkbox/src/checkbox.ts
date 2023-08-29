@@ -2,7 +2,7 @@ import { UPDATE_MODEL_EVENT } from '@storm/constants'
 import { isBoolean, isNumber, isString } from '@storm/utils'
 import { ExtractPropTypes } from 'vue'
 
-type checkboxValueType = number | string | boolean
+export type checkboxValueType = number | string | boolean
 export const checkboxProps = {
   modelValue: {
     type: [Number, String, Boolean],

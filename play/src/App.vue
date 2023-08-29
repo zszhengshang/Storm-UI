@@ -38,6 +38,19 @@
     v-model="checked2"
     label="option2"
   >options2</s-checkbox>
+  <s-checkbox-group v-model="checkList">
+    <s-checkbox label="Option A" />
+    <s-checkbox label="Option B" />
+    <s-checkbox label="Option C" />
+    <s-checkbox
+      label="disabled"
+      disabled
+    />
+    <s-checkbox
+      label="selected and disabled"
+      disabled
+    />
+  </s-checkbox-group>
 </template>
 
 <script setup lang="ts">
@@ -47,4 +60,5 @@ const radio = ref('selected and disabled')
 const radioGroup = ref(1)
 const checked1 = ref(true)
 const checked2 = ref(false)
+const checkList = ref(['selected and disabled', 'Option A'])
 </script>

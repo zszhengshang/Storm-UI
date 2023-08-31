@@ -1,56 +1,18 @@
 # Button 按钮
 
-storm-ui 推荐使用 xicons 作为图标库
+常用的操作按钮。
 
-```
-$ pnpm install @vicons/ionicons5
-```
+## 基础用法
 
-## 使用图标
+使用 `type`、`round` 来定义按钮的样式。
 
-- 如果你想像用例一样直接使用，你需要全局注册组件，才能够直接在项目中使用。
-
-<script setup lang="ts">
-import { CashOutline } from '@vicons/ionicons5'
-</script>
-
-<s-icon color="red" size="40">
-  <CashOutline />
-</s-icon>
-<s-icon color="green" size="40">
-  <CashOutline />
-</s-icon>
-<s-icon color="blue" size="40">
-  <CashOutline />
-</s-icon>
-
-<s-icon color="red" size="60">
-  <CashOutline />
-</s-icon>
-<s-icon color="green" size="60">
-  <CashOutline />
-</s-icon>
-<s-icon color="blue" size="60">
-  <CashOutline />
-</s-icon>
-
-```vue
-<script setup lang="ts">
-import { CashOutline } from '@vicons/ionicons5'
-</script>
-
+```vue preview
 <template>
-<s-icon color="red" size="40">
-  <CashOutline />
-</s-icon>
+  <s-button>default</s-button>
+  <s-button type="primary">primary</s-button>
+  <s-button type="success">success</s-button>
+  <s-button type="info">info</s-button>
+  <s-button type="warning">warning</s-button>
+  <s-button type="danger">danger</s-button>
 </template>
 ```
-
-## API
-
-### Icon Props
-
-| 名称   | 类型            | 默认值    | 说明    |
-| ------ | --------------  | -------- | ------- |
-| color  | string          | undefind | 图标颜色 |
-| size   | number \| string | undefind | 图标大小 |

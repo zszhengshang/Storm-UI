@@ -39,7 +39,7 @@
       &.is-checked {
         .#{$namespace}-checkbox__inner {
           &::after {
-            background-color: $color-placeholder-text;
+            border-color: $color-placeholder-text;
           }
         }
       }

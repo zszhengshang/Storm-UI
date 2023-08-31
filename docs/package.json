@@ -1,15 +1,19 @@
 {
-  "name": "docs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "vitepress dev ."
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "vitepress": "1.0.0-beta.7"
-  }
+	"name": "docs",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "vitepress dev ."
+	},
+	"type": "module",
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"vitepress": "1.0.0-rc.10"
+	},
+	"dependencies": {
+		"vite-plugin-markdown-preview": "^1.1.1"
+	}
 }

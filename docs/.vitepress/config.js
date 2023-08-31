@@ -1,4 +1,7 @@
-module.exports = {
+import { defineConfig } from 'vitepress'
+import MarkdownPreview from 'vite-plugin-markdown-preview'
+
+export default defineConfig({
   ttile: 'Storm-UI',
   description: 'Storm-UI',
   themeConfig: {
@@ -26,10 +29,14 @@ module.exports = {
         {
           text: '基础组件',
           items: [
-            { text: 'Icon', link: '/component/icon' }
+            { text: 'Button 按钮', link: '/component/button' },
+            { text: 'Icon 图标', link: '/component/icon' }
           ]
         }
       ]
     }
+  },
+  vite: {
+    plugins: [MarkdownPreview()],
   }
-}
+})

@@ -1,0 +1,9 @@
+@use "./mixins/mixins.scss" as *;
+
+@include b(input) {
+  display: inline-flex;
+  vertical-align: middle;
+  width: 100%;
+  line-height: 32px;
+  font-size: 14px;
+}

@@ -67,6 +67,14 @@
   }
   @include m(primary) {
     @include button-variant($color-white, $color-primary, $color-primary);
+    &:not(.is-disabled) {
+      &:hover {
+        box-shadow: 0 4px 10px 0 rgba(41, 112, 246, 0.3);
+      }
+      &:active {
+        background-color: $color-active;
+      }
+    }
   }
   @include m(success) {
     @include button-variant($color-white, $color-success, $color-success);

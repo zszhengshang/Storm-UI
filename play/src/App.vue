@@ -65,6 +65,9 @@
       <s-checkbox label="selected and disabled" disabled />
     </s-checkbox-group>
   </div>
+  <div style="margin-top: 10px">
+    <s-input></s-input>
+  </div>
 </template>
 
 <script setup lang="ts">

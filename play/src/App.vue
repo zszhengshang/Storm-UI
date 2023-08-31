@@ -66,7 +66,8 @@
     </s-checkbox-group>
   </div>
   <div style="margin-top: 10px">
-    <s-input></s-input>
+    <s-input placeholder="Please input"></s-input>
+    <s-input disabled placeholder="Please input"></s-input>
   </div>
 </template>
 

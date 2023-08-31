@@ -6,10 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm -C play dev",
-    "doc:dev": "pnpm -C docs dev",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "doc:dev": "pnpm -C docs dev"
   },
   "keywords": [],
   "author": "",

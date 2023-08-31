@@ -21,8 +21,8 @@
     @include when(checked) {
       .#{$namespace}-radio__inner {
         border-color: $color-primary;
-        background-color: $color-primary;
         &:after {
+          background-color: $color-primary;
           transform: translate(-50%, -50%) scale(1);
         }
       }
@@ -33,7 +33,6 @@
     @include when(disabled) {
       .#{$namespace}-radio__inner {
         border-color: $color-border-disabled;
-        background-color: $color-bg-disabled;
       }
       & + span.#{$namespace}-radio__label {
         color: $color-placeholder-text;
@@ -59,17 +58,17 @@
     display: inline-block;
     width: 14px;
     height: 14px;
-    border-radius: 100%;
-    border: 1px solid #dcdfe6;
+    border-radius: 3px;
+    border: 1px solid #b5bdc7;
     background-color: $color-white;
     &:after {
       content: "";
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 4px;
-      height: 4px;
-      border-radius: 100%;
+      width: 7px;
+      height: 7px;
+      border-radius: 1px;
       background-color: $color-white;
       transform: translate(-50%, -50%) scale(0);
       transition: transform 0.15s ease-in;

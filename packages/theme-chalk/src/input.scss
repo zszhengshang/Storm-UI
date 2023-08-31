@@ -1,4 +1,5 @@
 @use "./mixins/mixins.scss" as *;
+@use "./common/var.scss" as *;
 
 @include b(input) {
   display: inline-flex;
@@ -6,4 +7,47 @@
   width: 100%;
   line-height: 32px;
   font-size: 14px;
+  @include e(wrapper) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 1px 11px;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px $color-border inset;
+    background-color: $color-white;
+    cursor: text;
+    &:hover {
+      box-shadow: 0 0 0 1px $color-border-disabled inset;
+    }
+    @include when(focus) {
+      box-shadow: 0 0 0 1px $color-primary inset;
+    }
+  }
+  @include e(inner) {
+    flex-grow: 1;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    outline: none;
+    font-size: 14px;
+    color: $color-text;
+    border: none;
+    background: none;
+    -webkit-appearance: none;
+    &::-webkit-input-placeholder {
+      color: $color-placeholder-text;
+    }
+  }
+  @include when(disabled) {
+    cursor: not-allowed;
+    .#{$namespace}-input__wrapper {
+      box-shadow: 0 0 0 1px $color-border-disabled inset;
+      background-color: $color-bg-disabled;
+    }
+    .#{$namespace}-input__inner {
+      cursor: not-allowed;
+    }
+  }
 }

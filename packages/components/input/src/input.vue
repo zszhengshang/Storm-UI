@@ -33,6 +33,7 @@
           ref="inputRef"
           :type="type"
           :class="bem.e('inner')"
+          :value="model"
           :disabled="disabled"
           :readonly="readonly"
           :maxLength="maxLength"
@@ -58,7 +59,7 @@
 <script setup lang="ts">
 import { createNamespace } from '@storm/utils/create'
 import { inputEmits, inputProps } from './input';
-import { computed, useSlots, shallowRef } from 'vue';
+import { computed, useSlots, shallowRef, useAttrs } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@storm/constants';
 import { useFocus } from './use-focus'
 
@@ -81,12 +82,21 @@ const showClear = computed(() => props.clearable && !props.disabled && !props.re
 // 输入框尾部内容
 const suffixVisible = computed(() => slots.suffix || !!props.suffixIcon || showClear.value)
 
+const model = computed({
+  get() {
+    return props.modelValue
+  },
+  set(val) {
+    emit(UPDATE_MODEL_EVENT, val)
+  }
+})
+
 const { wrapperRef, isFocused, handleFocus, handleBlur } = useFocus(_ref)
 
 const handleInput = (e: Event) => {
-  const { value } = e.target as TargetElement
-  emit(UPDATE_MODEL_EVENT, value)
-  emit('input', value)
+  const target = e.target as TargetElement
+  emit(UPDATE_MODEL_EVENT, target.value)
+  emit('input', target.value)
 }
 const handleChange = (e: Event) => {
   const target = e.target as TargetElement

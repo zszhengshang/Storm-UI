@@ -66,7 +66,7 @@
     </s-checkbox-group>
   </div>
   <div style="margin-top: 10px">
-    <s-input placeholder="Please input"></s-input>
+    <s-input placeholder="Please input" v-model="input"></s-input>
     <s-input disabled placeholder="Please input"></s-input>
     <s-input placeholder="Please input" :prefix-icon="Grid"></s-input>
   </div>
@@ -80,4 +80,5 @@ const radios = ref(3)
 const checked1 = ref(false)
 const checked2 = ref(true)
 const checkList = ref(['selected and disabled', 'Option A'])
+const input = ref()
 </script>

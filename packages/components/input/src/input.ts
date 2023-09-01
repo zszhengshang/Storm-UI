@@ -8,7 +8,7 @@ export const inputProps = {
     default: 'text'
   },
   modelValue: {
-    type: String,
+    type: [String, Number, Object] as PropType<string | number | undefined | null>,
     default: ''
   },
   disabled: Boolean,

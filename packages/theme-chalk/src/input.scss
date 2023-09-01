@@ -30,6 +30,14 @@
     margin-right: 8px;
     color: $color-placeholder-text;
   }
+  @include e(suffix) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-left: 8px;
+    color: $color-placeholder-text;
+  }
   @include e(inner) {
     flex-grow: 1;
     width: 100%;
@@ -45,6 +53,9 @@
     &::-webkit-input-placeholder {
       color: $color-placeholder-text;
     }
+  }
+  @include e(clear) {
+    cursor: pointer;
   }
   @include when(disabled) {
     cursor: not-allowed;

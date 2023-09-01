@@ -47,7 +47,33 @@
         <span
           :class="bem.e('suffix')"
           v-if="suffixVisible"
-        ></span>
+        >
+          <s-icon
+            :class="[
+              bem.e('icon'),
+              bem.e('clear')
+            ]"
+            @mousedown.prevent
+            @click="clear"
+            v-if="showClear"
+          >
+            <!-- 这里prevent要阻止接下来blur事件的触发 确保点击事件可以触发 -->
+            <circle-close />
+          </s-icon>
+          <template v-else>
+            <slot
+              :class="bem.e('icon')"
+              name="suffix"
+              v-if="$slots.suffix"
+            />
+            <s-icon
+              :class="bem.e('icon')"
+              v-else-if="suffixIcon"
+            >
+              <component :is="suffixIcon" />
+            </s-icon>
+          </template>
+        </span>
       </div>
     </template>
     <!-- textarea -->
@@ -61,6 +87,8 @@ import { inputEmits, inputProps } from './input';
 import { computed, useSlots, shallowRef, onMounted, nextTick, watch } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@storm/constants';
 import { useFocus } from './use-focus'
+import SIcon from '@storm/components/icon'
+import CircleClose from '@storm/components/internal-icon/circle-close'
 
 type TargetElement = HTMLInputElement | HTMLTextAreaElement
 
@@ -76,8 +104,8 @@ const bem = createNamespace('input')
 const inputRef = shallowRef<HTMLInputElement>()
 const textareaRef = shallowRef<HTMLTextAreaElement>()
 const _ref = computed(() => inputRef.value || textareaRef.value)
-// 如果没有传modelValue就为空
-const nativeInputValue = computed(() => props.modelValue ?? '')
+// 如果modelValue不为null或者undefined就强转为字符串
+const nativeInputValue = computed(() => props.modelValue == undefined ? '' : String(props.modelValue))
 // 清除按钮
 const showClear = computed(
   () => props.clearable &&
@@ -111,6 +139,7 @@ const handleKeydown = (e: KeyboardEvent) => {
 }
 // 设置输入框的值 如果没有传modelValue就无法输入
 const setNativeInputValue = () => {
+  // 没传modelValue 所以modelValue和input的value值对不上
   const input = _ref.value
   if (!input || input.value === nativeInputValue.value) {
     return
@@ -123,8 +152,15 @@ onMounted(() => setNativeInputValue())
 // 暴露出去给外部调用
 const focus = () => _ref.value?.focus()
 const blur = () => _ref.value?.blur()
+const clear = () => {
+  emit(UPDATE_MODEL_EVENT, '')
+  emit('change', '')
+  emit('clear')
+  emit('input', '')
+}
 defineExpose({
   focus,
-  blur
+  blur,
+  clear
 })
 </script>

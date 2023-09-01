@@ -33,7 +33,6 @@
           ref="inputRef"
           :type="type"
           :class="bem.e('inner')"
-          :value="model"
           :disabled="disabled"
           :readonly="readonly"
           :maxLength="maxLength"
@@ -59,7 +58,7 @@
 <script setup lang="ts">
 import { createNamespace } from '@storm/utils/create'
 import { inputEmits, inputProps } from './input';
-import { computed, useSlots, shallowRef, useAttrs } from 'vue';
+import { computed, useSlots, shallowRef, onMounted, nextTick, watch } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@storm/constants';
 import { useFocus } from './use-focus'
 
@@ -77,26 +76,31 @@ const bem = createNamespace('input')
 const inputRef = shallowRef<HTMLInputElement>()
 const textareaRef = shallowRef<HTMLTextAreaElement>()
 const _ref = computed(() => inputRef.value || textareaRef.value)
+// 如果没有传modelValue就为空
+const nativeInputValue = computed(() => props.modelValue ?? '')
 // 清除按钮
-const showClear = computed(() => props.clearable && !props.disabled && !props.readonly && isFocused.value)
+const showClear = computed(
+  () => props.clearable &&
+    !props.disabled &&
+    !props.readonly &&
+    !!nativeInputValue.value &&
+    isFocused.value
+)
 // 输入框尾部内容
 const suffixVisible = computed(() => slots.suffix || !!props.suffixIcon || showClear.value)
 
-const model = computed({
-  get() {
-    return props.modelValue
-  },
-  set(val) {
-    emit(UPDATE_MODEL_EVENT, val)
-  }
-})
-
 const { wrapperRef, isFocused, handleFocus, handleBlur } = useFocus(_ref)
 
-const handleInput = (e: Event) => {
+const handleInput = async (e: Event) => {
   const target = e.target as TargetElement
+  if (target.value === nativeInputValue.value) {
+    setNativeInputValue()
+    return
+  }
   emit(UPDATE_MODEL_EVENT, target.value)
   emit('input', target.value)
+  await nextTick()
+  setNativeInputValue()
 }
 const handleChange = (e: Event) => {
   const target = e.target as TargetElement
@@ -105,6 +109,17 @@ const handleChange = (e: Event) => {
 const handleKeydown = (e: KeyboardEvent) => {
   emit('keydown', e)
 }
+// 设置输入框的值 如果没有传modelValue就无法输入
+const setNativeInputValue = () => {
+  const input = _ref.value
+  if (!input || input.value === nativeInputValue.value) {
+    return
+  }
+  input.value = nativeInputValue.value
+}
+watch(nativeInputValue, () => setNativeInputValue())
+onMounted(() => setNativeInputValue())
+
 // 暴露出去给外部调用
 const focus = () => _ref.value?.focus()
 const blur = () => _ref.value?.blur()

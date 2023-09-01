@@ -68,6 +68,7 @@
   <div style="margin-top: 10px">
     <s-input placeholder="Please input"></s-input>
     <s-input disabled placeholder="Please input"></s-input>
+    <s-input placeholder="Please input" :prefix-icon="Grid"></s-input>
   </div>
 </template>
 

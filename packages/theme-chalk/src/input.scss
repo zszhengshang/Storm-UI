@@ -22,6 +22,14 @@
       box-shadow: 0 0 0 1px $color-primary inset;
     }
   }
+  @include e(prefix) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-right: 8px;
+    color: $color-placeholder-text;
+  }
   @include e(inner) {
     flex-grow: 1;
     width: 100%;

@@ -5,20 +5,37 @@
   ]">
     <!-- input -->
     <template v-if="type !== 'textarea'">
-      <div :class="[
-        bem.e('wrapper'),
-        bem.is('focus', isFocused)
-      ]">
+      <div
+        ref="wrapperRef"
+        :class="[
+          bem.e('wrapper'),
+          bem.is('focus', isFocused)
+        ]"
+      >
         <!-- 输入框头部内容 -->
         <span
           :class="bem.e('prefix')"
           v-if="$slots.prefix || prefixIcon"
-        ></span>
+        >
+          <slot
+            :class="bem.e('icon')"
+            name="prefix"
+            v-if="$slots.prefix"
+          />
+          <s-icon
+            :class="bem.e('icon')"
+            v-else-if="prefixIcon"
+          >
+            <component :is="prefixIcon" />
+          </s-icon>
+        </span>
         <input
+          ref="inputRef"
           :type="type"
           :class="bem.e('inner')"
           :disabled="disabled"
           :readonly="readonly"
+          :maxLength="maxLength"
           :placeholder="placeholder"
           @input="handleInput"
           @focus="handleFocus"
@@ -41,8 +58,9 @@
 <script setup lang="ts">
 import { createNamespace } from '@storm/utils/create'
 import { inputEmits, inputProps } from './input';
-import { computed, useSlots, ref } from 'vue';
+import { computed, useSlots, shallowRef } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@storm/constants';
+import { useFocus } from './use-focus'
 
 type TargetElement = HTMLInputElement | HTMLTextAreaElement
 
@@ -55,26 +73,20 @@ const emit = defineEmits(inputEmits)
 const slots = useSlots()
 
 const bem = createNamespace('input')
-// 记录是否聚焦
-const isFocused = ref(false)
+const inputRef = shallowRef<HTMLInputElement>()
+const textareaRef = shallowRef<HTMLTextAreaElement>()
+const _ref = computed(() => inputRef.value || textareaRef.value)
 // 清除按钮
 const showClear = computed(() => props.clearable && !props.disabled && !props.readonly && isFocused.value)
 // 输入框尾部内容
 const suffixVisible = computed(() => slots.suffix || !!props.suffixIcon || showClear.value)
 
+const { wrapperRef, isFocused, handleFocus, handleBlur } = useFocus(_ref)
+
 const handleInput = (e: Event) => {
   const { value } = e.target as TargetElement
   emit(UPDATE_MODEL_EVENT, value)
   emit('input', value)
-}
-const handleFocus = (e: FocusEvent) => {
-  if (isFocused.value) return
-  isFocused.value = true
-  emit('focus', e)
-}
-const handleBlur = (e: FocusEvent) => {
-  isFocused.value = false
-  emit('blur', e)
 }
 const handleChange = (e: Event) => {
   const target = e.target as TargetElement
@@ -83,4 +95,11 @@ const handleChange = (e: Event) => {
 const handleKeydown = (e: KeyboardEvent) => {
   emit('keydown', e)
 }
+// 暴露出去给外部调用
+const focus = () => _ref.value?.focus()
+const blur = () => _ref.value?.blur()
+defineExpose({
+  focus,
+  blur
+})
 </script>

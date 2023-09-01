@@ -30,7 +30,7 @@
     }
     @include when(disabled) {
       .#{$namespace}-checkbox__inner {
-        border-color: $color-border-disabled;
+        border-color: $color-border;
         background-color: $color-bg-disabled;
       }
       & + span.#{$namespace}-checkbox__label {

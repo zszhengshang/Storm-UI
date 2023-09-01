@@ -32,7 +32,7 @@
     }
     @include when(disabled) {
       .#{$namespace}-radio__inner {
-        border-color: $color-border-disabled;
+        border-color: $color-border;
       }
       & + span.#{$namespace}-radio__label {
         color: $color-placeholder-text;
@@ -59,7 +59,7 @@
     width: 14px;
     height: 14px;
     border-radius: 3px;
-    border: 1px solid #b5bdc7;
+    border: 1px solid $color-border;
     background-color: $color-white;
     &:after {
       content: "";

@@ -16,10 +16,8 @@
     border-radius: 4px;
     box-shadow: 0 0 0 1px $color-border inset;
     background-color: $color-white;
+    transition: box-shadow 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     cursor: text;
-    &:hover {
-      box-shadow: 0 0 0 1px $color-border-disabled inset;
-    }
     @include when(focus) {
       box-shadow: 0 0 0 1px $color-primary inset;
     }
@@ -43,7 +41,6 @@
   @include when(disabled) {
     cursor: not-allowed;
     .#{$namespace}-input__wrapper {
-      box-shadow: 0 0 0 1px $color-border-disabled inset;
       background-color: $color-bg-disabled;
     }
     .#{$namespace}-input__inner {

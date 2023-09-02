@@ -70,7 +70,10 @@
     <s-input disabled placeholder="Please input"></s-input>
     <s-input placeholder="Please input" :prefix-icon="Grid"></s-input>
     <s-input placeholder="Please input" :suffix-icon="Grid"></s-input>
-    <s-input v-model="input2" placeholder="Please input" clearable></s-input>
+    <s-input v-model="input2" placeholder="Please input" maxLength="10" clearable></s-input>
+  </div>
+  <div style="margin-top: 10px;">
+    <s-input type="textarea" v-model="textarea"></s-input>
   </div>
 </template>
 
@@ -84,4 +87,5 @@ const checked2 = ref(true)
 const checkList = ref(['selected and disabled', 'Option A'])
 const input = ref()
 const input2 = ref(1)
+const textarea = ref()
 </script>

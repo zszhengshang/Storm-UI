@@ -33,6 +33,7 @@
           ref="inputRef"
           :type="type"
           :class="bem.e('inner')"
+          v-bind="attrs"
           :disabled="disabled"
           :readonly="readonly"
           :maxLength="maxLength"
@@ -77,14 +78,29 @@
       </div>
     </template>
     <!-- textarea -->
-    <template v-else></template>
+    <template v-else>
+      <textarea
+        ref="textareaRef"
+        :class="bem.e('inner')"
+        v-bind="attrs"
+        :disabled="disabled"
+        :readonly="readonly"
+        :maxLength="maxLength"
+        :placeholder="placeholder"
+        @input="handleInput"
+        @focus="handleFocus"
+        @blur="handleBlur"
+        @change="handleChange"
+        @keydown="handleKeydown"
+      ></textarea>
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
 import { createNamespace } from '@storm/utils/create'
 import { inputEmits, inputProps } from './input';
-import { computed, useSlots, shallowRef, onMounted, nextTick, watch } from 'vue';
+import { computed, useSlots, shallowRef, onMounted, nextTick, watch, useAttrs } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@storm/constants';
 import { useFocus } from './use-focus'
 import SIcon from '@storm/components/icon'
@@ -99,8 +115,9 @@ defineOptions({
 const props = defineProps(inputProps)
 const emit = defineEmits(inputEmits)
 const slots = useSlots()
+const attrs = useAttrs()
 
-const bem = createNamespace('input')
+const bem = createNamespace(props.type === 'textarea' ? 'textarea' : 'input')
 const inputRef = shallowRef<HTMLInputElement>()
 const textareaRef = shallowRef<HTMLTextAreaElement>()
 const _ref = computed(() => inputRef.value || textareaRef.value)

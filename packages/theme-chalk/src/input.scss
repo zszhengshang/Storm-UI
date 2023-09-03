@@ -53,6 +53,9 @@
     &::-webkit-input-placeholder {
       color: $color-placeholder-text;
     }
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
   }
   @include e(clear) {
     cursor: pointer;

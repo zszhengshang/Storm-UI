@@ -82,6 +82,9 @@
     <s-switch :modelValue="true" loading></s-switch>
     <s-switch :modelValue="false" loading></s-switch>
   </div>
+  <div style="margin: 10px;">
+    <s-input-number></s-input-number>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -75,6 +75,13 @@
   <div style="margin-top: 10px;">
     <s-input type="textarea" v-model="textarea"></s-input>
   </div>
+  <div style="margin-top: 10px;">
+    <s-switch v-model="switchValue"></s-switch>
+    <s-switch :modelValue="true" disabled></s-switch>
+    <s-switch :modelValue="false" disabled></s-switch>
+    <s-switch :modelValue="true" loading></s-switch>
+    <s-switch :modelValue="false" loading></s-switch>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -88,4 +95,5 @@ const checkList = ref(['selected and disabled', 'Option A'])
 const input = ref()
 const input2 = ref(1)
 const textarea = ref()
+const switchValue = ref(true)
 </script>

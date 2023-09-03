@@ -1,0 +1,58 @@
+@use "./mixins/mixins.scss" as *;
+@use "./common/var.scss" as *;
+
+@include b(switch) {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  height: 32px;
+  font-size: $font-size-base;
+  @include e(input) {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    opacity: 0;
+  }
+  @include e(core) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 40px;
+    height: 20px;
+    border-radius: 10px;
+    outline: none;
+    background-color: $color-placeholder-text;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  @include e(action) {
+    position: absolute;
+    left: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    color: $color-placeholder-text;
+    border-radius: 100%;
+    background-color: $color-white;
+    transition: all 0.3s;
+  }
+  @include when(checked) {
+    .#{$namespace}-switch__core {
+      background-color: $color-primary;
+    }
+    .#{$namespace}-switch__action {
+      color: $color-primary;
+      left: calc(100% - 18px);
+    }
+  }
+  @include when(disabled) {
+    opacity: 0.6;
+    .#{$namespace}-switch__core {
+      cursor: not-allowed;
+    }
+  }
+}

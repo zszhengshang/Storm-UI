@@ -5,6 +5,7 @@ import Button from '@storm/components/button'
 import Radio from '@storm/components/radio'
 import Checkbox from '@storm/components/checkbox'
 import Input from '@storm/components/input'
+import Switch from '@storm/components/switch'
 import '@storm/theme-chalk/src/index.scss'
 
 const plugins = [
@@ -12,7 +13,8 @@ const plugins = [
   Button,
   Radio,
   Checkbox,
-  Input
+  Input,
+  Switch
 ]
 const app = createApp(App)
 plugins.forEach(plugin => app.use(plugin))

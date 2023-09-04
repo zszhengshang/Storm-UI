@@ -66,6 +66,7 @@
       background-color: $color-bg-disabled;
     }
     .#{$namespace}-input__inner {
+      color: $color-border;
       cursor: not-allowed;
     }
   }

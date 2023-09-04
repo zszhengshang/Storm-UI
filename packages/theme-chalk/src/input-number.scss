@@ -19,6 +19,10 @@
     background-color: $color-bg-disabled;
     user-select: none;
     cursor: pointer;
+    &.is-disabled {
+      color: $color-border;
+      cursor: not-allowed;
+    }
   }
   @include e(decrease) {
     left: 1px;
@@ -30,12 +34,17 @@
     border-radius: 0 4px 4px 0;
     border-left: 1px solid $color-border;
   }
+  @include when(disabled) {
+    .#{$namespace}-input-number__controls {
+      color: $color-border;
+      cursor: not-allowed;
+    }
+  }
   .#{$namespace}-input__wrapper {
     padding: 0 42px;
   }
   .#{$namespace}-input__inner {
     line-height: 1;
     text-align: center;
-    -webkit-appearance: none;
   }
 }

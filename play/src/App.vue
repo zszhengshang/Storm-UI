@@ -67,7 +67,7 @@
   </div>
   <div style="margin-top: 10px">
     <s-input placeholder="Please input" v-model="input"></s-input>
-    <s-input disabled placeholder="Please input"></s-input>
+    <s-input disabled placeholder="Please input" v-model="input"></s-input>
     <s-input placeholder="Please input" :prefix-icon="Grid"></s-input>
     <s-input placeholder="Please input" :suffix-icon="Grid"></s-input>
     <s-input v-model="input2" placeholder="Please input" maxLength="10" clearable></s-input>
@@ -83,7 +83,11 @@
     <s-switch :modelValue="false" loading></s-switch>
   </div>
   <div style="margin: 10px;">
-    <s-input-number></s-input-number>
+    <s-input-number v-model="inputNumber1" :min="1" :max="10"></s-input-number>
+    <s-input-number v-model="inputNumber1" disabled></s-input-number>
+    <s-input-number v-model="inputNumber2" :step="2"></s-input-number>
+    <s-input-number v-model="inputNumber3" :precision="2" :step="0.1" :max="5"></s-input-number>
+    <s-input-number v-model="inputNumber2" :controls="false"></s-input-number>
   </div>
 </template>
 
@@ -95,8 +99,11 @@ const radios = ref(3)
 const checked1 = ref(false)
 const checked2 = ref(true)
 const checkList = ref(['selected and disabled', 'Option A'])
-const input = ref()
+const input = ref(123)
 const input2 = ref(1)
 const textarea = ref()
 const switchValue = ref(true)
+const inputNumber1 = ref(1)
+const inputNumber2 = ref(1)
+const inputNumber3 = ref(1)
 </script>

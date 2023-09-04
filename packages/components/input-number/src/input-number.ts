@@ -1,16 +1,16 @@
 import { UPDATE_MODEL_EVENT } from "@storm/constants"
-import { isNumber, isUndefined } from "@storm/utils"
+import { isNil, isNumber, isUndefined } from "@storm/utils"
 import { ExtractPropTypes } from "vue"
 
 export const inputNumberProps = {
   modelValue: Number,
   max: {
     type: Number,
-    default: Number.NEGATIVE_INFINITY
+    default: Number.POSITIVE_INFINITY
   },
   min: {
     type: Number,
-    default: Number.POSITIVE_INFINITY
+    default: Number.NEGATIVE_INFINITY
   },
   step: {
     type: Number,
@@ -32,8 +32,8 @@ export const inputNumberProps = {
 }
 
 export const inputNumberEmits = {
-  [UPDATE_MODEL_EVENT]: (val: number | undefined) => isNumber(val) || isUndefined(val),
-  change: (currentVal: number | undefined, oldVal: number | undefined) => oldVal !== currentVal,
+  [UPDATE_MODEL_EVENT]: (val: number | undefined) => isNumber(val) || isNil(val),
+  change: (val: number | undefined) => isNumber(val) || isUndefined(val),
   blur: (e: FocusEvent) => e instanceof FocusEvent,
   focus: (e: FocusEvent) => e instanceof FocusEvent,
 }

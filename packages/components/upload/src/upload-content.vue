@@ -84,7 +84,7 @@ const upload = async (rawFile: UploadRawFile) => {
   if (!props.beforeUpload) {
     return doUpload(rawFile)
   }
-  let hookResult
+  let hookResult: boolean | undefined
   try {
     const beforeUploadPromise = props.beforeUpload(rawFile)
     hookResult = await beforeUploadPromise

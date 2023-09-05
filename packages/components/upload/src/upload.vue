@@ -6,18 +6,23 @@
     >
       <slot v-if="$slots.default" />
     </upload-content>
-    <div :class="bem.e('tip')">
-      <slot name="tip" />
-    </div>
+    <slot name="tip" />
+    <upload-list
+      :disabled="disabled"
+      :files="uploadFiles"
+      @remove="handleRemove"
+      v-if="showFileList"
+    ></upload-list>
   </div>
 </template>
 
 <script setup lang="ts">
 import { uploadProps } from './upload'
 import UploadContent from './upload-content.vue'
+import UploadList from './upload-list.vue'
 import { createNamespace } from '@storm/utils/create';
 import { useHandlers } from './use-handles'
-import { shallowRef, computed } from 'vue';
+import { shallowRef, computed, onBeforeUnmount } from 'vue';
 import { UploadContentProps, UploadContentInstance } from './upload-content'
 defineOptions({ name: 'SUpload' })
 const props = defineProps(uploadProps)
@@ -42,11 +47,19 @@ const {
   handleProgress,
   handleSuccess,
   handleStart,
-  handleRemove
+  handleRemove,
+  submit
 } = useHandlers(props, uploadRef)
+
+onBeforeUnmount(() => {
+  uploadFiles.value.forEach(({ url }) => {
+    if (url?.startsWith('blob:')) URL.revokeObjectURL(url)
+  })
+})
 
 defineExpose({
   abort,
-  clearFiles
+  clearFiles,
+  submit
 })
 </script>

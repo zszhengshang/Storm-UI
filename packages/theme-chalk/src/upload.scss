@@ -21,3 +21,6 @@
     color: $color-text;
   }
 }
+@include b(upload-list) {
+  padding-top: 10px;
+}

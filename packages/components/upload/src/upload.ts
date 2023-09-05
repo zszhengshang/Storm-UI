@@ -23,6 +23,9 @@ export interface UploadFile {
   raw?: UploadRawFile
 }
 export type UploadFiles = UploadFile[]
+// 把status和uid变成可选
+export type UploadUserFile = Omit<UploadFile, 'status' | 'uid'> &
+  Partial<Pick<UploadFile, 'status' | 'uid'>>
 export interface UploadRequestOptions {
   action: string
   method: string
@@ -76,16 +79,16 @@ export const uploadBaseProps = {
     type: Boolean,
     default: true
   },
-  drag: {
-    type: Boolean,
-    default: false
-  },
+  // drag: {
+  //   type: Boolean,
+  //   default: false
+  // },
   accept: {
     type: String,
     default: '',
   },
   fileList: {
-    type: Array as PropType<UploadFiles>,
+    type: Array as PropType<UploadUserFile[]>,
     default: () => []
   },
   autoUpload: {

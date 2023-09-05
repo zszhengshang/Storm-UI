@@ -1,5 +1,5 @@
 import { ShallowRef } from "vue";
-import { UploadFile, UploadProps, UploadRawFile, UploadStatus } from "./upload";
+import { UploadFile, UploadFiles, UploadProps, UploadRawFile, UploadStatus } from "./upload";
 import { UploadContentInstance, UploadContentProps } from "./upload-content";
 import { useVModel } from "@vueuse/core";
 
@@ -11,7 +11,8 @@ const revokeFileObjectURL = (file: UploadFile) => {
 
 export const useHandlers = (props: UploadProps, uploadRef: ShallowRef<UploadContentInstance | undefined>) => {
   const uploadFiles = useVModel(
-    props,
+    // 把用户类型的fileList去除 添加类型为UploadFiles的fileList
+    props as Omit<UploadProps, 'fileList'> & { fileList: UploadFiles },
     'fileList',
     undefined,
     { passive: true }
@@ -101,7 +102,6 @@ export const useHandlers = (props: UploadProps, uploadRef: ShallowRef<UploadCont
     handleSuccess,
     handleStart,
     handleRemove,
-    submit,
-    revokeFileObjectURL
+    submit
   }
 }

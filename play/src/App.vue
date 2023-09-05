@@ -97,7 +97,12 @@
   <div style="margin: 10px;">
     <s-upload :data="{a: [1,2],b:2}" :headers="{contentType: 'applicaiton/json'}">
       <s-button type="primary">点击上传</s-button>
-      <template #tip>123</template>
+      <template #tip>
+        <div>123</div>
+      </template>
+    </s-upload>
+    <s-upload v-model:file-list="fileList">
+      <s-button type="primary">点击上传</s-button>
     </s-upload>
   </div>
 </template>
@@ -117,4 +122,15 @@ const switchValue = ref(true)
 const inputNumber1 = ref(1)
 const inputNumber2 = ref(1)
 const inputNumber3 = ref(1)
+
+const fileList = ref<any>([
+  {
+    name: 'element-plus-logo.svg',
+    url: 'https://element-plus.org/images/element-plus-logo.svg',
+  },
+  {
+    name: 'element-plus-logo2.svg',
+    url: 'https://element-plus.org/images/element-plus-logo.svg',
+  },
+])
 </script>

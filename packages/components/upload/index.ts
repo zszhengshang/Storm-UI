@@ -1,0 +1,14 @@
+import { withInstall } from '@storm/utils/with-install'
+import _Upload from './src/upload.vue'
+// 添加install方法
+const Upload = withInstall(_Upload)
+
+export default Upload
+export type { UploadProps } from './src/upload'
+
+// 配合volar插件 可以在模版中被解析
+declare module 'vue' {
+  export interface GlobalComponents {
+    SUpload: typeof Upload
+  }
+}

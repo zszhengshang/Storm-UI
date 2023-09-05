@@ -1,17 +1,18 @@
 import { NOOP } from "@storm/utils"
 import { ExtractPropTypes, PropType } from "vue"
+import { UploadAjaxError, ajaxUpload } from "./ajax"
 
 let fileId = 0
 export const genFileId = () => Date.now() + fileId++
 
-type UploadStatus = 'ready' | 'uploading' | 'success' | 'fail'
-interface UploadRawFile extends File {
+export type UploadStatus = 'ready' | 'uploading' | 'success' | 'fail'
+export interface UploadRawFile extends File {
   uid: number
 }
-interface UploadProgressEvent extends ProgressEvent {
+export interface UploadProgressEvent extends ProgressEvent {
   percent: number
 }
-interface UploadFile {
+export interface UploadFile {
   name: string
   percentage?: number
   status: UploadStatus
@@ -21,17 +22,28 @@ interface UploadFile {
   url?: string
   raw?: UploadRawFile
 }
-type UploadFiles = UploadFile[]
-
-interface UploadHooks {
-  beforeUpload: (rawFile: UploadFiles) => boolean | Promise<boolean>,
+export type UploadFiles = UploadFile[]
+export interface UploadRequestOptions {
+  action: string
+  method: string
+  data: Record<string, any>
+  filename: string
+  file: UploadRawFile
+  headers: Headers | Record<string, any>
+  onError: (e: any) => void,
+  onProgress: (e: UploadProgressEvent) => void
+  onSuccess: (response: any) => void
+}
+export type UploadRequestHandler = (options: UploadRequestOptions) => XMLHttpRequest | Promise<unknown>
+export interface UploadHooks {
+  beforeUpload: (rawFile: UploadRawFile) => boolean | Promise<boolean>,
   beforeRemove: (uploadFile: UploadFile, uploadFiles: UploadFiles) => boolean | Promise<boolean>,
   onRemove: (uploadFile: UploadFile, uploadFiles: UploadFiles) => void,
   onChange: (uploadFile: UploadFile, uploadFiles: UploadFiles) => void
   onPreview: (uploadFile: UploadFile) => void,
   onSuccess: (response: any, uploadFile: UploadFile, uploadFiles: UploadFiles) => void
   onProgress: (evt: UploadProgressEvent, uploadFile: UploadFile, uploadFiles: UploadFiles) => void
-  onError: (error: Error, uploadFile: UploadFile, uploadFiles: UploadFiles) => void
+  onError: (error: UploadAjaxError, uploadFile: UploadFile, uploadFiles: UploadFiles) => void
   onExceed: (files: File[]) => void
 }
 
@@ -72,9 +84,17 @@ export const uploadBaseProps = {
     type: String,
     default: '',
   },
+  fileList: {
+    type: Array as PropType<UploadFiles>,
+    default: () => []
+  },
   autoUpload: {
     type: Boolean,
     default: true,
+  },
+  httpRequest: {
+    type: Function as PropType<UploadRequestHandler>,
+    default: ajaxUpload
   },
   disabled: Boolean,
   limit: Number

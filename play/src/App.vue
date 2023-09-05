@@ -42,6 +42,11 @@
     </s-button>
   </div>
   <div style="margin-top: 10px">
+    <s-button type="primary" size="small">small</s-button>
+    <s-button type="primary">default</s-button>
+    <s-button type="primary" size="large">large</s-button>
+  </div>
+  <div style="margin-top: 10px">
     <s-radio v-model="radio" label="Option A1">Option A</s-radio>
     <s-radio v-model="radio" label="Option B">Option B</s-radio>
   </div>
@@ -88,6 +93,12 @@
     <s-input-number v-model="inputNumber2" :step="2"></s-input-number>
     <s-input-number v-model="inputNumber3" :precision="2" :step="0.1" :max="5"></s-input-number>
     <s-input-number v-model="inputNumber2" :controls="false"></s-input-number>
+  </div>
+  <div style="margin: 10px;">
+    <s-upload :data="{a: [1,2],b:2}" :headers="{contentType: 'applicaiton/json'}">
+      <s-button type="primary">点击上传</s-button>
+      <template #tip>123</template>
+    </s-upload>
   </div>
 </template>
 

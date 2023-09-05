@@ -8,14 +8,11 @@ export type NativeType = 'button' | 'submit' | 'reset'
 export const buttonProps = {
   size: {
     type: String as PropType<Size>,
-    default: 'default'
+    default: ''
   },
   type: {
     type: String as PropType<Type>,
-    validator: (val: string) => {
-      return ['primary', 'success', 'warning', 'danger', 'info', 'default'].includes(val)
-    },
-    default: 'default'
+    default: ''
   },
   round: Boolean,
   loading: Boolean,

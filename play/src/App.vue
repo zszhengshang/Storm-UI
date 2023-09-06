@@ -110,6 +110,7 @@
 <script setup lang="ts">
 import { TrashOutline, Grid, BluetoothOutline } from '@vicons/ionicons5'
 import { ref } from 'vue';
+import { UploadUserFile } from '@storm/components/upload'
 const radio = ref('Option A1')
 const radios = ref(3)
 const checked1 = ref(false)
@@ -123,7 +124,7 @@ const inputNumber1 = ref(1)
 const inputNumber2 = ref(1)
 const inputNumber3 = ref(1)
 
-const fileList = ref<any>([
+const fileList = ref<UploadUserFile[]>([
   {
     name: 'element-plus-logo.svg',
     url: 'https://element-plus.org/images/element-plus-logo.svg',

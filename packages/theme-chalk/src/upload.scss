@@ -22,5 +22,63 @@
   }
 }
 @include b(upload-list) {
+  line-height: 1.8;
   padding-top: 10px;
+  @include e(item) {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 0 4px;
+    font-size: $font-size-base;
+    color: $color-text;
+    border-radius: 4px;
+    transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+    cursor: pointer;
+    &:hover {
+      background-color: $color-bg-disabled;
+    }
+    @include when(success) {
+      &:hover {
+        .#{$namespace}-upload-list__item-info {
+          color: $color-primary;
+        }
+        .#{$namespace}-upload-list--icon-success {
+          display: none;
+        }
+        .#{$namespace}-upload-list--close {
+          display: inline-flex;
+        }
+      }
+    }
+  }
+  @include e(item-info) {
+    flex: 1;
+    display: inline-flex;
+  }
+  @include e(item-name) {
+    display: inline-flex;
+    align-items: center;
+  }
+  @include e(item-file-name) {
+    padding-left: 6px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  @include e(item-status) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @include m(icon-success) {
+    color: $color-success;
+  }
+  @include m(close) {
+    display: none;
+    opacity: 0.75;
+    &:hover {
+      color: $color-primary;
+      opacity: 1;
+    }
+  }
 }

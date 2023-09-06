@@ -26,7 +26,7 @@
 import { createNamespace } from '@storm/utils/create';
 import { uploadContentProps } from './upload-content';
 import { shallowRef } from 'vue'
-import { UploadRawFile, genFileId, UploadRequestOptions } from './upload';
+import { UploadRawFile, genFileId, UploadRequestOptions, UploadFile } from './upload';
 defineOptions({
   name: 'SUploadContent',
   inheritAttrs: false
@@ -128,4 +128,19 @@ const handleChange = (e: Event) => {
   if (!target.files) return
   handleUpload(Array.from(target.files))
 }
+
+const abort = (file: UploadFile) => {
+  const _reqs = Object.entries(requests.value).filter(([uid]) => String(file.uid) === uid)
+  _reqs.forEach(([uid, req]) => {
+    if (req instanceof XMLHttpRequest) {
+      req.abort()
+    }
+    delete requests.value[uid]
+  })
+}
+
+defineExpose({
+  abort,
+  upload
+})
 </script>

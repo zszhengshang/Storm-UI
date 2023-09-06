@@ -1,4 +1,4 @@
-import { ShallowRef } from "vue";
+import { ShallowRef, watch } from "vue";
 import { UploadFile, UploadFiles, UploadProps, UploadRawFile, UploadStatus } from "./upload";
 import { UploadContentInstance, UploadContentProps } from "./upload-content";
 import { useVModel } from "@vueuse/core";
@@ -92,6 +92,16 @@ export const useHandlers = (props: UploadProps, uploadRef: ShallowRef<UploadCont
     const readyFile = uploadFiles.value.filter(({ status }) => status === 'ready')
     readyFile.forEach(({ raw }) => raw && uploadRef.value?.upload(raw))
   }
+  // 默认文件列表标记为成功状态
+  watch(
+    uploadFiles,
+    files => {
+      for (const file of files) {
+        file.status ||= 'success'
+      }
+    },
+    { immediate: true, deep: true }
+  )
 
   return {
     uploadFiles,

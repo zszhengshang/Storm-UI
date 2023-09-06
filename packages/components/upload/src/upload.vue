@@ -12,7 +12,7 @@
       :files="uploadFiles"
       @remove="handleRemove"
       v-if="showFileList"
-    ></upload-list>
+    />
   </div>
 </template>
 
@@ -20,14 +20,12 @@
 import { uploadProps } from './upload'
 import UploadContent from './upload-content.vue'
 import UploadList from './upload-list.vue'
-import { createNamespace } from '@storm/utils/create';
 import { useHandlers } from './use-handles'
 import { shallowRef, computed, onBeforeUnmount } from 'vue';
 import { UploadContentProps, UploadContentInstance } from './upload-content'
 defineOptions({ name: 'SUpload' })
 const props = defineProps(uploadProps)
 
-const bem = createNamespace('upload')
 const uploadRef = shallowRef<UploadContentInstance>()
 const uploadContentProps = computed<UploadContentProps>(() => ({
   ...props,

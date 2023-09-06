@@ -5,6 +5,7 @@
       bem.b('list'),
       bem.is('disabled', disabled)
     ]"
+    name="s-list"
   >
     <li
       v-for="file in files"

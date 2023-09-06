@@ -101,7 +101,10 @@
         <div>123</div>
       </template>
     </s-upload>
-    <s-upload v-model:file-list="fileList">
+    <s-upload 
+      v-model:file-list="fileList" 
+      action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+    >
       <s-button type="primary">点击上传</s-button>
     </s-upload>
   </div>

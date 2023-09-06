@@ -25,8 +25,8 @@
   line-height: 1.8;
   padding-top: 10px;
   @include e(item) {
-    display: flex;
-    align-items: center;
+    position: relative;
+    width: 100%;
     margin-bottom: 5px;
     padding: 0 4px;
     font-size: $font-size-base;
@@ -36,8 +36,14 @@
     cursor: pointer;
     &:hover {
       background-color: $color-bg-disabled;
+      .#{$namespace}-upload-list--close {
+        display: inline-flex;
+      }
     }
     @include when(success) {
+      .#{$namespace}-upload-list--icon-success {
+        display: inline-flex;
+      }
       &:hover {
         .#{$namespace}-upload-list__item-info {
           color: $color-primary;
@@ -45,15 +51,14 @@
         .#{$namespace}-upload-list--icon-success {
           display: none;
         }
-        .#{$namespace}-upload-list--close {
-          display: inline-flex;
-        }
       }
     }
   }
   @include e(item-info) {
-    flex: 1;
     display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - 16px);
   }
   @include e(item-name) {
     display: inline-flex;
@@ -71,6 +76,7 @@
     justify-content: center;
   }
   @include m(icon-success) {
+    display: none;
     color: $color-success;
   }
   @include m(close) {

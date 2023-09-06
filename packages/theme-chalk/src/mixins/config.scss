@@ -23,3 +23,16 @@ body {
     }
   }
 }
+// TransitionGroup动画
+.#{$namespace}-list-enter-active,
+.#{$namespace}-list-leave-active {
+  transition: all 1s;
+}
+.#{$namespace}-list-enter-from,
+.#{$namespace}-list-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+.#{$namespace}-list-leave-active {
+  position: absolute !important;
+}

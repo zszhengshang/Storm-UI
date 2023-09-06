@@ -22,6 +22,7 @@
   }
 }
 @include b(upload-list) {
+  position: relative;
   line-height: 1.8;
   padding-top: 10px;
   @include e(item) {

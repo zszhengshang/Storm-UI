@@ -108,6 +108,24 @@
       <s-button type="primary">点击上传</s-button>
     </s-upload>
   </div>
+  <div style="margin: 10px;">
+    <s-progress :percentage="50"></s-progress>
+    <s-progress :percentage="100" :format="format"></s-progress>
+    <s-progress :percentage="100" status="success"></s-progress>
+    <s-progress :percentage="100" status="warning"></s-progress>
+    <s-progress :percentage="50" status="fail"></s-progress>
+  </div>
+  <div style="margin: 10px;">
+    <s-progress :text-inside="true" :height="26" :percentage="70"></s-progress>
+    <s-progress :text-inside="true" :height="24" :percentage="100" status="success"></s-progress>
+    <s-progress :text-inside="true" :height="22" :percentage="80" status="warning"></s-progress>
+    <s-progress :text-inside="true" :height="20" :percentage="50" status="fail"></s-progress>
+    <s-progress :percentage="50" indeterminate></s-progress>
+    <s-progress :percentage="70" color="#f60" indeterminate :duration="10"></s-progress>
+    <s-progress :percentage="70" :text-inside="true" :height="20">123</s-progress>
+    <s-progress :percentage="percentage" color="#f60" status="success"></s-progress>
+    <s-button @click="increase">+</s-button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -137,4 +155,13 @@ const fileList = ref<UploadUserFile[]>([
     url: 'https://element-plus.org/images/element-plus-logo.svg',
   },
 ])
+const format = (percentage: number) => percentage === 100 ? 'Full' : `${percentage}%`
+
+const percentage = ref(10)
+const increase = () => {
+  percentage.value += 10
+  if (percentage.value > 100) {
+    percentage.value = 100
+  }
+}
 </script>

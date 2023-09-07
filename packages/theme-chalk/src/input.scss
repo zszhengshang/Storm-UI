@@ -7,6 +7,14 @@
   width: 100%;
   line-height: 32px;
   font-size: $font-size-base;
+  &:not(&.is-disabled):hover {
+    .#{$namespace}-input__prefix {
+      color: $color-primary;
+    }
+    .#{$namespace}-input__suffix {
+      color: $color-primary;
+    }
+  }
   @include e(wrapper) {
     display: inline-flex;
     align-items: center;
@@ -29,6 +37,7 @@
     height: 100%;
     margin-right: 8px;
     color: $color-placeholder-text;
+    transition: color 0.2s;
   }
   @include e(suffix) {
     display: inline-flex;
@@ -37,6 +46,7 @@
     height: 100%;
     margin-left: 8px;
     color: $color-placeholder-text;
+    transition: color 0.2s;
   }
   @include e(inner) {
     flex-grow: 1;

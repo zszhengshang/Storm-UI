@@ -8,6 +8,7 @@ import Input from '@storm/components/input'
 import Switch from '@storm/components/switch'
 import InputNumber from '@storm/components/input-number'
 import Upload from '@storm/components/upload'
+import Progress from '@storm/components/progress'
 import '@storm/theme-chalk/src/index.scss'
 
 const plugins = [
@@ -18,7 +19,8 @@ const plugins = [
   Input,
   Switch,
   InputNumber,
-  Upload
+  Upload,
+  Progress
 ]
 const app = createApp(App)
 plugins.forEach(plugin => app.use(plugin))

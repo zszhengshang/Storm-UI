@@ -7,14 +7,12 @@ export const progressProps = {
     default: 0,
     validator: (val: number): boolean => val >= 0 && val <= 100
   },
-  type: {
-    type: String,
-    default: 'line'
-  },
+  // 进度条高度
   height: {
     type: Number,
     default: 6
   },
+  // 文本内嵌
   textInside: {
     type: Boolean,
     default: false
@@ -23,10 +21,12 @@ export const progressProps = {
     type: String,
     default: ''
   },
+  // 是否为动画进度条
   indeterminate: {
     type: Boolean,
     default: false
   },
+  // 动画速度
   duration: {
     type: Number,
     default: 3
@@ -34,10 +34,6 @@ export const progressProps = {
   color: {
     type: String,
     default: ''
-  },
-  width: {
-    type: Number,
-    default: 126
   },
   showText: {
     type: Boolean,

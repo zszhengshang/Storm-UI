@@ -20,6 +20,13 @@
     font-size: 12px;
     color: $color-text;
   }
+  @include when(drag) {
+    display: block;
+  }
+  @include e(text) {
+    font-size: 14px;
+    color: $color-text;
+  }
 }
 @include b(upload-list) {
   position: relative;
@@ -92,5 +99,20 @@
       color: $color-primary;
       opacity: 1;
     }
+  }
+}
+@include b(upload-dragger) {
+  padding: 40px 10px;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px dashed $color-border;
+  background-color: $color-white;
+  &:hover {
+    border-color: $color-primary;
+  }
+  .#{$namespace}-icon--upload {
+    margin-bottom: 15px;
+    font-size: 60px;
+    color: $color-placeholder-text;
   }
 }

@@ -107,6 +107,15 @@
     >
       <s-button type="primary">点击上传</s-button>
     </s-upload>
+    <s-upload 
+      drag
+      action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+    >
+      <s-icon class="s-icon--upload">
+        <CloudUpload />
+      </s-icon>
+      <div class="s-upload__text">Drop file here or click to upload</div>
+    </s-upload>
   </div>
   <div style="margin: 10px;">
     <s-progress :percentage="50"></s-progress>
@@ -129,7 +138,7 @@
 </template>
 
 <script setup lang="ts">
-import { TrashOutline, Grid, BluetoothOutline } from '@vicons/ionicons5'
+import { TrashOutline, Grid, BluetoothOutline, CloudUpload } from '@vicons/ionicons5'
 import { ref } from 'vue';
 import { UploadUserFile } from '@storm/components/upload'
 const radio = ref('Option A1')

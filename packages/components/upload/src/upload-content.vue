@@ -1,11 +1,16 @@
 <template>
   <div
     :class="[
-      bem.b()
+      bem.b(),
+      bem.is('drag', drag)
     ]"
     @click="handleClick"
   >
-    <template v-if="false"></template>
+    <template v-if="drag">
+      <upload-dragger :disabled="disabled">
+        <slot />
+      </upload-dragger>
+    </template>
     <template v-else>
       <slot />
     </template>
@@ -27,6 +32,7 @@ import { createNamespace } from '@storm/utils/create';
 import { uploadContentProps } from './upload-content';
 import { shallowRef } from 'vue'
 import { UploadRawFile, genFileId, UploadRequestOptions, UploadFile } from './upload';
+import uploadDragger from './upload-dragger.vue';
 defineOptions({
   name: 'SUploadContent',
   inheritAttrs: false

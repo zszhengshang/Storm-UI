@@ -79,10 +79,10 @@ export const uploadBaseProps = {
     type: Boolean,
     default: true
   },
-  // drag: {
-  //   type: Boolean,
-  //   default: false
-  // },
+  drag: {
+    type: Boolean,
+    default: false
+  },
   accept: {
     type: String,
     default: '',

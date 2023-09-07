@@ -12,7 +12,7 @@ export const buttonProps = {
   },
   type: {
     type: String as PropType<Type>,
-    default: ''
+    default: 'default'
   },
   round: Boolean,
   loading: Boolean,

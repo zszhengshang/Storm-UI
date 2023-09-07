@@ -65,27 +65,72 @@
       background-color: rgba(255, 255, 255, 0.3);
     }
   }
+  @include m(default) {
+    &:not(.is-disabled) {
+      &:hover {
+        color: $color-primary;
+        border-color: $color-primary;
+      }
+    }
+  }
   @include m(primary) {
     @include button-variant($color-white, $color-primary, $color-primary);
     &:not(.is-disabled) {
       &:hover {
-        box-shadow: 0 4px 10px 0 rgba(41, 112, 246, 0.3);
+        box-shadow: $color-primary-hover-shadow;
       }
       &:active {
-        background-color: $color-active;
+        border-color: $color-primary-active;
+        background-color: $color-primary-active;
       }
     }
   }
   @include m(success) {
     @include button-variant($color-white, $color-success, $color-success);
+    &:not(.is-disabled) {
+      &:hover {
+        box-shadow: $color-success-hover-shadow;
+      }
+      &:active {
+        border-color: $color-success-active;
+        background-color: $color-success-active;
+      }
+    }
   }
   @include m(warning) {
     @include button-variant($color-white, $color-warning, $color-warning);
+    &:not(.is-disabled) {
+      &:hover {
+        box-shadow: $color-warning-hover-shadow;
+      }
+      &:active {
+        border-color: $color-warning-active;
+        background-color: $color-warning-active;
+      }
+    }
   }
   @include m(danger) {
     @include button-variant($color-white, $color-danger, $color-danger);
+    &:not(.is-disabled) {
+      &:hover {
+        box-shadow: $color-danger-hover-shadow;
+      }
+      &:active {
+        border-color: $color-danger-active;
+        background-color: $color-danger-active;
+      }
+    }
   }
   @include m(info) {
     @include button-variant($color-white, $color-info, $color-info);
+    &:not(.is-disabled) {
+      &:hover {
+        box-shadow: $color-info-hover-shadow;
+      }
+      &:active {
+        border-color: $color-info-active;
+        background-color: $color-info-active;
+      }
+    }
   }
 }

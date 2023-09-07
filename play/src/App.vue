@@ -109,6 +109,7 @@
     </s-upload>
     <s-upload 
       drag
+      accept=".png"
       action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
     >
       <s-icon class="s-icon--upload">

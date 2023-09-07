@@ -7,7 +7,7 @@
     @click="handleClick"
   >
     <template v-if="drag">
-      <upload-dragger :disabled="disabled">
+      <upload-dragger :disabled="disabled" @change="handleUpload">
         <slot />
       </upload-dragger>
     </template>

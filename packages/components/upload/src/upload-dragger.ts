@@ -8,7 +8,7 @@ export const uploadDraggerProps = {
   }
 } as const
 export const uploadDraggerEmits = {
-  change: (file: File) => isArray(file)
+  change: (files: File[]) => isArray(files)
 }
 
 export type UploadDraggerProps = ExtractPropTypes<typeof uploadDraggerProps>

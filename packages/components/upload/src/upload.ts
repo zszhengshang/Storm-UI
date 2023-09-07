@@ -1,10 +1,13 @@
 import { NOOP } from "@storm/utils"
-import { ExtractPropTypes, PropType } from "vue"
+import { ExtractPropTypes, PropType, InjectionKey } from "vue"
 import { UploadAjaxError, ajaxUpload } from "./ajax"
 
 let fileId = 0
 export const genFileId = () => Date.now() + fileId++
 
+type UploadContext = {
+  accept: string
+}
 export type UploadStatus = 'ready' | 'uploading' | 'success' | 'fail'
 export interface UploadRawFile extends File {
   uid: number
@@ -143,4 +146,5 @@ export const uploadProps = {
   }
 } as const
 
+export const uploadContextKey: InjectionKey<UploadContext> = Symbol('uploadContextKey')
 export type UploadProps = ExtractPropTypes<typeof uploadProps>

@@ -23,6 +23,11 @@
           <span :class="bem.be('list', 'item-file-name')">{{ file.name }}</span>
         </div>
         <!-- 进度条 -->
+        <s-progress
+          :height="2"
+          :percentage="Number(file.percentage)"
+          v-if="file.status === 'uploading'"
+        />
       </div>
       <span :class="bem.be('list', 'item-status')">
         <s-icon
@@ -48,6 +53,7 @@
 import { createNamespace } from '@storm/utils/create';
 import { uploadListEmits, uploadListProps } from './upload-list';
 import SIcon from '@storm/components/icon'
+import SProgress from '@storm/components/progress'
 import Document from '@storm/components/internal-icon/document'
 import CircleCheck from '@storm/components/internal-icon/circle-check'
 import circleClose from '@storm/components/internal-icon/circle-close'

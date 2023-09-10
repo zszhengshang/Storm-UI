@@ -1,65 +1,52 @@
 import { iconPropType } from "@storm/utils"
-import { PropType } from "vue"
+import { ExtractPropTypes, PropType, InjectionKey, Component, SetupContext } from "vue"
 
-export type Key = string | number
-type Node = {
-  id: number
-  text: string
-  checked: boolean
-  indeterminate: boolean
-  data: Record<string, any>
-  expanded: boolean
-  parent: Node
-  visible: boolean
-  isCurrent: boolean
-  isLeaf: boolean
-  canFocus: boolean
-  level: number
-  loaded: boolean
-  childNodes: Node[]
-  loading: boolean
+export type TreeKey = string | number
+type TreeContext = {
+  indent?: number
+  icon?: string | Component,
+  ctx?: Omit<SetupContext<TreeEmits>, 'expose' | 'attrs'>
 }
-export type LoadFn = (
-  node: Node,
-  resolve: (data: Record<string, any>) => void
-) => void
-export type filterNodeMethodFn = (
-  value: any,
-  data: Record<string, any>,
-  node: Node
-) => boolean
-
-export interface TreeData {
-  label?: Key
-  children?: TreeData[]
-  isLeaf?: boolean
+export type TreeNodeData = Record<string, any>
+export type FilterMethod = (query: string, node: TreeNodeData) => boolean
+export interface TreeOptionProps {
+  value?: string
+  label?: string
+  children?: string
+  disabled?: string
+}
+export interface TreeNode {
+  key: TreeKey
+  label?: string
   disabled?: boolean
+  children?: TreeNode[]
+  level: number
+  parent?: TreeNode
+  rawNode: TreeNodeData
+  isLeaf?: boolean
 }
+
 export const treeProps = {
   data: {
-    type: Array,
+    type: Array as PropType<TreeNodeData[]>,
     default: () => []
   },
   emptyText: String,
-  nodeKey: String,
   props: {
-    type: Object as PropType<TreeData>,
+    type: Object as PropType<TreeOptionProps>,
     default: () => ({
+      value: 'id',
       label: 'label',
       disabled: 'disabled',
       children: 'children'
     })
   },
-  load: Function as PropType<LoadFn>,
-  // 自定义内容
-  renderContent: Function,
+  load: Function as PropType<(node: TreeOptionProps) => Promise<TreeOptionProps[]>>,
   // 是否高亮当前选中节点
   highlightCurrent: Boolean,
-  // 	是否默认展开所有节点
-  defaultExpandAll: Boolean,
   // 默认展开的节点的 key 的数组
   defaultExpandedKeys: {
-    type: Array as PropType<Key[]>,
+    type: Array as PropType<TreeKey[]>,
     default: () => []
   },
   showCheckbox: {
@@ -68,30 +55,31 @@ export const treeProps = {
   },
   // 默认勾选的节点的 key 的数组
   defaultCheckedKeys: {
-    type: Array as PropType<Key[]>,
+    type: Array as PropType<TreeKey[]>,
     default: () => []
   },
   // 当前选中的节点
-  currentNodeKey: [String, Number] as PropType<Key>,
+  currentNodeKey: [String, Number] as PropType<TreeKey>,
   // 对树节点进行筛选时执行的方法
-  filterNodeMethod: Function as PropType<filterNodeMethodFn>,
-  // 手风琴模式
-  accordion: Boolean,
+  filterNodeMethod: Function as PropType<FilterMethod>,
   indent: {
     type: Number,
-    default: 18
+    default: 16
   },
   icon: iconPropType,
   lazy: {
     type: Boolean,
     default: false
-  },
-  draggable: {
-    type: Boolean,
-    default: false
-  },
-  // 节点能否被拖拽
-  allowDrag: Function,
-  // 节点能否拖放到目标节点
-  allowDrop: Function
+  }
+} as const
+export const treeEmits = {
+  nodeClick: (data: TreeNodeData, node: TreeNode, e: MouseEvent) => data && node && e,
+  checkChange: (data: TreeNodeData, checked: boolean) =>
+    data && typeof checked === 'boolean',
+  nodeExpand: (data: TreeNodeData, node: TreeNode) => data && node,
+  nodeCollapse: (data: TreeNodeData, node: TreeNode) => data && node
 }
+export const treeContextKey: InjectionKey<TreeContext> = Symbol('treeContextKey')
+
+export type TreeProps = ExtractPropTypes<typeof treeProps>
+export type TreeEmits = typeof treeEmits

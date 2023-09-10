@@ -1,0 +1,33 @@
+@use "./mixins/mixins.scss" as *;
+@use "./common/var.scss" as *;
+
+@include b(tree) {
+  font-size: $font-size-base;
+  color: $color-text;
+  background-color: $color-white;
+}
+@include b(tree-node) {
+  height: 26px;
+  white-space: nowrap;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-bg-disabled;
+  }
+  @include e(content) {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  @include e(expand-icon) {
+    padding: 6px;
+    font-size: 12px;
+    color: $color-placeholder-text;
+    transform: rotate(0);
+    transition: transform 0.3s ease-in-out;
+    box-sizing: content-box;
+    @include when(leaf) {
+      color: transparent;
+      visibility: hidden;
+    }
+  }
+}

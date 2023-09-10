@@ -60,6 +60,7 @@
   <div style="margin-top: 10px">
     <s-checkbox v-model="checked1" disabled>Disabled</s-checkbox>
     <s-checkbox v-model="checked2">Not disabled</s-checkbox>
+    <s-checkbox indeterminate>indeterminate</s-checkbox>
   </div>
   <div style="margin-top: 10px">
     <s-checkbox-group v-model="checkList">
@@ -136,6 +137,9 @@
     <s-progress :percentage="percentage" color="#f60" status="success"></s-progress>
     <s-button @click="increase">+</s-button>
   </div>
+  <div style="margin: 10px;">
+    <s-tree :data="data" :props="{ value: 'label'}"></s-tree>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -174,4 +178,66 @@ const increase = () => {
     percentage.value = 100
   }
 }
+
+interface Tree {
+  label: string
+  children?: Tree[]
+}
+const data: Tree[] = [
+  {
+    label: 'Level one 1',
+    children: [
+      {
+        label: 'Level two 1-1',
+        children: [
+          {
+            label: 'Level three 1-1-1',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Level one 2',
+    children: [
+      {
+        label: 'Level two 2-1',
+        children: [
+          {
+            label: 'Level three 2-1-1',
+          },
+        ],
+      },
+      {
+        label: 'Level two 2-2',
+        children: [
+          {
+            label: 'Level three 2-2-1',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Level one 3',
+    children: [
+      {
+        label: 'Level two 3-1',
+        children: [
+          {
+            label: 'Level three 3-1-1',
+          },
+        ],
+      },
+      {
+        label: 'Level two 3-2',
+        children: [
+          {
+            label: 'Level three 3-2-1',
+          },
+        ],
+      },
+    ],
+  },
+]
 </script>

@@ -7,7 +7,8 @@
     <span :class="[
       bem.e('input'),
       bem.is('disabled', isDisabled),
-      bem.is('checked', isChecked)
+      bem.is('checked', isChecked),
+      bem.is('indeterminate', indeterminate)
     ]">
       <input
         type="checkbox"

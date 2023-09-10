@@ -43,6 +43,34 @@
           }
         }
       }
+      &.is-indeterminate {
+        .#{$namespace}-checkbox__inner {
+          border-color: $color-border;
+          background-color: $color-bg-disabled;
+          &::before {
+            background-color: $color-placeholder-text;
+          }
+        }
+      }
+    }
+    @include when(indeterminate) {
+      .#{$namespace}-checkbox__inner {
+        border-color: $color-primary;
+        background-color: $color-primary;
+        &:after {
+          display: none;
+        }
+        &:before {
+          content: "";
+          position: absolute;
+          top: 5px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background-color: $color-white;
+          transform: scale(0.5);
+        }
+      }
     }
   }
   @include e(origin) {

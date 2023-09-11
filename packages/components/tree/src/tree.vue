@@ -4,9 +4,17 @@
       v-for="node in flattenTree"
       :key="node.key"
       :node="node"
+      :expanded="isExpanded(node)"
       :show-checkbox="showCheckbox"
       @click="(e) => handleNodeClick(node, e)"
+      v-if="isNotEmpty"
     />
+    <div
+      :class="bem.e('empty')"
+      v-else
+    >
+      <span :class="bem.e('empty-text')">{{ emptyText }}</span>
+    </div>
   </div>
 </template>
 
@@ -22,8 +30,7 @@ const emit = defineEmits(treeEmits)
 const slots = useSlots()
 
 const bem = createNamespace('tree')
-const { flattenTree, handleNodeClick } = useTree(props, emit)
-console.log(flattenTree.value)
+const { flattenTree, isNotEmpty, isExpanded, handleNodeClick } = useTree(props, emit)
 
 provide(treeContextKey, {
   ctx: {

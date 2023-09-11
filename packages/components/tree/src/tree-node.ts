@@ -9,6 +9,10 @@ export const treeNodeProps = {
   showCheckbox: {
     type: Boolean,
     default: false
+  },
+  expanded: {
+    type: Boolean,
+    default: false
   }
 } as const
 

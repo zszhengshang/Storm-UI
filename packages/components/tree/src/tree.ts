@@ -31,7 +31,10 @@ export const treeProps = {
     type: Array as PropType<TreeNodeData[]>,
     default: () => []
   },
-  emptyText: String,
+  emptyText: {
+    type: String,
+    default: '暂无数据'
+  },
   props: {
     type: Object as PropType<TreeOptionProps>,
     default: () => ({

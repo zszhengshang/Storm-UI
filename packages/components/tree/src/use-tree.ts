@@ -56,6 +56,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     }
     return flattenNodes
   })
+  const isNotEmpty = computed(() => flattenTree.value.length > 0)
 
   const createTree = (data: TreeNodeData[], parent?: TreeNode) => {
     function traversal(data: TreeNodeData[], parent?: TreeNode) {
@@ -74,7 +75,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
           isLeaf: children.length === 0
         }
         if (children.length > 0) {
-          treeNode.children = traversal(children, parent)
+          treeNode.children = traversal(children, treeNode)
         }
         return treeNode
       })
@@ -83,7 +84,8 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     const result: TreeNode[] = traversal(data, parent)
     return result
   }
-
+  const isExpanded = (node: TreeNode) => expandedKeysSet.value.has(node.key)
+  //--- 展开收起功能开始
   const expandNode = (node: TreeNode) => {
     const expandedKeys = expandedKeysSet.value
     expandedKeys.add(node.key)
@@ -108,6 +110,8 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     // 切换展开收起
     toggleExpand(node)
   }
+  //--- 展开收起功能结束
+
   // 监控数据变化 调用格式化方法
   watch(
     () => props.data,
@@ -121,6 +125,8 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
 
   return {
     flattenTree,
+    isNotEmpty,
+    isExpanded,
     handleNodeClick
   }
 }

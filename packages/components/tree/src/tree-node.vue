@@ -8,7 +8,10 @@
     >
       <s-icon :class="[
         bem.be('node', 'expand-icon'),
-        bem.is('leaf', !!node.isLeaf)
+        bem.is('leaf', !!node.isLeaf),
+        {
+          expanded: !node.isLeaf && expanded
+        }
       ]">
         <component :is="icon" />
       </s-icon>

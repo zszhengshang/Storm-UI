@@ -5,6 +5,12 @@
   font-size: $font-size-base;
   color: $color-text;
   background-color: $color-white;
+  @include e(empty) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+  }
 }
 @include b(tree-node) {
   height: 26px;
@@ -28,6 +34,9 @@
     @include when(leaf) {
       color: transparent;
       visibility: hidden;
+    }
+    &.expanded {
+      transform: rotate(90deg);
     }
   }
 }

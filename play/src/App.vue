@@ -137,7 +137,7 @@
     <s-progress :percentage="percentage" color="#f60" status="success"></s-progress>
     <s-button @click="increase">+</s-button>
   </div>
-  <div style="margin: 10px;">
+  <div style="margin: 10px 0 200px;">
     <s-tree :data="data" :props="{ value: 'label'}"></s-tree>
   </div>
 </template>

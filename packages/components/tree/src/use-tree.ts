@@ -1,5 +1,7 @@
 import { SetupContext, computed, ref, watch } from "vue";
 import { TreeEmits, TreeNode, TreeNodeData, TreeOptionProps, TreeProps } from "./tree";
+import { useCheck } from "./use-check";
+import type { CheckboxValueType } from '@storm/components/checkbox'
 
 function createOptions(props: TreeOptionProps) {
   return {
@@ -25,6 +27,12 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
   const tree = ref<TreeNode[]>([])
   const treeOptions = createOptions(props.props)
   const expandedKeysSet = ref(new Set(props.defaultExpandedKeys))
+  // 可选择树相关
+  const {
+    isChecked,
+    isIndeterminate,
+    toggleCheck
+  } = useCheck(props)
   // 要渲染的tree-node
   const flattenTree = computed(() => {
     // 要展开的key
@@ -85,6 +93,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     return result
   }
   const isExpanded = (node: TreeNode) => expandedKeysSet.value.has(node.key)
+  const isDisabled = (node: TreeNode) => !!node.disabled
   //--- 展开收起功能开始
   const expandNode = (node: TreeNode) => {
     const expandedKeys = expandedKeysSet.value
@@ -111,6 +120,8 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     toggleExpand(node)
   }
   //--- 展开收起功能结束
+  // 切换勾选
+  const handleNodeCheck = (node: TreeNode, checked: CheckboxValueType) => toggleCheck(node, checked)
 
   // 监控数据变化 调用格式化方法
   watch(
@@ -127,6 +138,10 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     flattenTree,
     isNotEmpty,
     isExpanded,
-    handleNodeClick
+    isChecked,
+    isIndeterminate,
+    isDisabled,
+    handleNodeClick,
+    handleNodeCheck
   }
 }

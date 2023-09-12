@@ -14,7 +14,6 @@
 }
 @include b(tree-node) {
   height: 26px;
-  white-space: nowrap;
   cursor: pointer;
   &:hover {
     background-color: $color-bg-disabled;
@@ -23,6 +22,9 @@
     display: flex;
     align-items: center;
     height: 100%;
+    & > label.#{$namespace}-checkbox {
+      margin-right: 8px;
+    }
   }
   @include e(expand-icon) {
     padding: 6px;

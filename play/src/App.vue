@@ -138,7 +138,7 @@
     <s-button @click="increase">+</s-button>
   </div>
   <div style="margin: 10px 0 200px;">
-    <s-tree :data="data" :props="{ value: 'label'}"></s-tree>
+    <s-tree :data="data" show-checkbox :props="{ value: 'label'}"></s-tree>
   </div>
 </template>
 

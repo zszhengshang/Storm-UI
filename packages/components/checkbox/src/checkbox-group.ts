@@ -1,9 +1,9 @@
 import { ExtractPropTypes, PropType, WritableComputedRef, InjectionKey } from 'vue'
-import { checkboxValueType } from './checkbox'
+import { CheckboxValueType } from './checkbox'
 import { UPDATE_MODEL_EVENT } from '@storm/constants'
 import { isArray } from '@storm/utils'
 
-export type CheckboxGroupValueType = Exclude<checkboxValueType, boolean>[]
+export type CheckboxGroupValueType = Exclude<CheckboxValueType, boolean>[]
 type CheckboxGroupContext = {
   modelValue?: WritableComputedRef<any>,
   disabled?: boolean,

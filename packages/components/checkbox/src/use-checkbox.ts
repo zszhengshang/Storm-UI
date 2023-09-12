@@ -1,10 +1,10 @@
-import { computed, getCurrentInstance, inject } from "vue";
+import { SetupContext, computed, getCurrentInstance, inject } from "vue";
 import { CheckboxProps } from "./checkbox";
 import { checkboxGroupContextKey } from "./checkbox-group";
 import { isArray, isBoolean } from "@storm/utils";
 import { UPDATE_MODEL_EVENT } from "@storm/constants";
 
-export const useCheckbox = (props: CheckboxProps) => {
+export const useCheckbox = (props: CheckboxProps, slots: SetupContext['slots']) => {
   const { emit } = getCurrentInstance()!
   const checkboxGroup = inject(checkboxGroupContextKey, undefined)
   const isGroup = computed(() => !!checkboxGroup)
@@ -32,6 +32,10 @@ export const useCheckbox = (props: CheckboxProps) => {
     }
   })
   const isDisabled = computed(() => checkboxGroup?.disabled ? checkboxGroup.disabled : props.disabled)
+  // 没传label也没有默认插槽
+  const hasOwnLabel = computed<boolean>(() => {
+    return !!(slots.default || props.label)
+  })
 
   const handleChange = (e: Event) => {
     const target = e.target as HTMLInputElement
@@ -42,6 +46,7 @@ export const useCheckbox = (props: CheckboxProps) => {
     model,
     isChecked,
     isDisabled,
+    hasOwnLabel,
     handleChange
   }
 }

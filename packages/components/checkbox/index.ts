@@ -5,7 +5,7 @@ import _CheckboxGroup from './src/checkbox-group.vue'
 const Checkbox = withInstall(_Checkbox, { _CheckboxGroup })
 
 export default Checkbox
-export type { CheckboxProps, CheckboxEmits } from './src/checkbox'
+export type { CheckboxProps, CheckboxEmits, CheckboxValueType } from './src/checkbox'
 export type { CheckboxGroupProps, CheckboxGroupEmits } from './src/checkbox-group'
 
 // 配合volar插件 可以在模版中被解析

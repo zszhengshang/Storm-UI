@@ -21,7 +21,7 @@
       >
       <span :class="bem.e('inner')"></span>
     </span>
-    <span :class="bem.e('label')">
+    <span :class="bem.e('label')" v-if="hasOwnLabel">
       <slot>
         {{ label }}
       </slot>
@@ -33,10 +33,12 @@
 import { createNamespace } from '@storm/utils/create';
 import { checkboxEmits, checkboxProps } from './checkbox';
 import { useCheckbox } from './use-checkbox';
+import { useSlots } from 'vue';
 defineOptions({ name: 'SCheckbox' })
 const props = defineProps(checkboxProps)
 defineEmits(checkboxEmits)
+const slots = useSlots()
 
 const bem = createNamespace('checkbox')
-const { model, isChecked, isDisabled, handleChange } = useCheckbox(props)
+const { model, isChecked, isDisabled, hasOwnLabel, handleChange } = useCheckbox(props, slots)
 </script>

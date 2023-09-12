@@ -1,5 +1,7 @@
 import { ExtractPropTypes, PropType } from "vue";
 import { TreeNode } from "./tree";
+import type { CheckboxValueType } from '@storm/components/checkbox'
+import { isBoolean } from "@storm/utils";
 
 export const treeNodeProps = {
   node: {
@@ -13,6 +15,18 @@ export const treeNodeProps = {
   expanded: {
     type: Boolean,
     default: false
+  },
+  checked: {
+    type: Boolean,
+    default: false
+  },
+  indeterminate: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 } as const
 
@@ -22,6 +36,10 @@ export const treeNodeContentProps = {
     required: true
   }
 } as const
+
+export const treeNodeEmits = {
+  check: (node: TreeNode, checked: CheckboxValueType) => node && isBoolean(checked)
+}
 
 export type TreeNodeProps = ExtractPropTypes<typeof treeNodeProps>
 export type TreeNodeContentProps = ExtractPropTypes<typeof treeNodeContentProps>

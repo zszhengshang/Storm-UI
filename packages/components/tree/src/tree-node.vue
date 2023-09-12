@@ -15,7 +15,14 @@
       ]">
         <component :is="icon" />
       </s-icon>
-      <s-checkbox v-if="showCheckbox"></s-checkbox>
+      <s-checkbox
+        :model-value="checked"
+        :indeterminate="indeterminate"
+        :disabled="disabled"
+        @change="handleCheckChange"
+        @click.stop
+        v-if="showCheckbox"
+      />
       <s-tree-node-content :node="node" />
     </div>
   </div>
@@ -23,18 +30,22 @@
 
 <script setup lang="ts">
 import { createNamespace } from '@storm/utils/create';
-import { treeNodeProps } from './tree-node';
+import { treeNodeProps, treeNodeEmits } from './tree-node';
 import { inject, computed } from 'vue';
 import { treeContextKey } from './tree';
 import STreeNodeContent from './tree-node-content'
 import SIcon from '@storm/components/icon'
 import SCheckbox from '@storm/components/checkbox'
 import Right from '@storm/components/internal-icon/right'
+import type { CheckboxValueType } from '@storm/components/checkbox'
 defineOptions({ name: 'STreeNode' })
-defineProps(treeNodeProps)
+const props = defineProps(treeNodeProps)
+const emit = defineEmits(treeNodeEmits)
 
 const bem = createNamespace('tree')
 const tree = inject(treeContextKey, undefined)
 const indent = computed(() => tree?.indent ?? 16)
 const icon = computed(() => tree?.icon ?? Right)
+
+const handleCheckChange = (value: CheckboxValueType) => emit('check', props.node, value)
 </script>

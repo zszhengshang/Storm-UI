@@ -5,8 +5,12 @@
       :key="node.key"
       :node="node"
       :expanded="isExpanded(node)"
+      :checked="isChecked(node)"
+      :indeterminate="isIndeterminate(node)"
+      :disabled="isDisabled(node)"
       :show-checkbox="showCheckbox"
-      @click="(e) => handleNodeClick(node, e)"
+      @click="(e: MouseEvent) => handleNodeClick(node, e)"
+      @check="handleNodeCheck"
       v-if="isNotEmpty"
     />
     <div
@@ -30,7 +34,16 @@ const emit = defineEmits(treeEmits)
 const slots = useSlots()
 
 const bem = createNamespace('tree')
-const { flattenTree, isNotEmpty, isExpanded, handleNodeClick } = useTree(props, emit)
+const {
+  flattenTree,
+  isNotEmpty,
+  isExpanded,
+  isChecked,
+  isIndeterminate,
+  isDisabled,
+  handleNodeClick,
+  handleNodeCheck
+} = useTree(props, emit)
 
 provide(treeContextKey, {
   ctx: {

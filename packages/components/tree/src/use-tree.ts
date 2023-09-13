@@ -1,5 +1,5 @@
 import { SetupContext, computed, ref, watch } from "vue";
-import { TreeEmits, TreeNode, TreeNodeData, TreeOptionProps, TreeProps } from "./tree";
+import { Tree, TreeEmits, TreeNode, TreeNodeData, TreeOptionProps, TreeProps } from "./tree";
 import { useCheck } from "./use-check";
 import type { CheckboxValueType } from '@storm/components/checkbox'
 
@@ -24,7 +24,7 @@ function createOptions(props: TreeOptionProps) {
 }
 
 export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit']) => {
-  const tree = ref<TreeNode[]>([])
+  const tree = ref<Tree | undefined>()
   const treeOptions = createOptions(props.props)
   const expandedKeysSet = ref(new Set(props.defaultExpandedKeys))
   // 可选择树相关
@@ -32,13 +32,13 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     isChecked,
     isIndeterminate,
     toggleCheck
-  } = useCheck(props)
+  } = useCheck(props, tree)
   // 要渲染的tree-node
   const flattenTree = computed(() => {
     // 要展开的key
     const expandedKeys = expandedKeysSet.value
     // 格式化后的节点
-    const nodes = tree.value
+    const nodes = (tree.value && tree.value.treeNodes) || []
     // 用于遍历树的栈
     const stack: TreeNode[] = []
     // 拍平后的结果
@@ -67,9 +67,14 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
   const isNotEmpty = computed(() => flattenTree.value.length > 0)
 
   const createTree = (data: TreeNodeData[], parent?: TreeNode) => {
+    let maxLevel = 0
+    // key为level value为nodes的map 在勾选逻辑的时候使用
+    const levelTreeNodeMap = new Map<number, TreeNode[]>()
     function traversal(data: TreeNodeData[], parent?: TreeNode) {
       return data.map(rawNode => {
         const children = treeOptions.getChildren(rawNode) || []
+        // 有父节点就+1，没有说明就是0
+        const level = parent ? parent.level + 1 : 0
         const treeNode: TreeNode = {
           key: treeOptions.getKey(rawNode),
           label: treeOptions.getLabel(rawNode),
@@ -77,20 +82,31 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
           disabled: !!rawNode.disabled,
           // 没有格式化过的数据
           rawNode,
-          // 有父节点就+1，没有说明就是0
-          level: parent ? parent.level + 1 : 0,
+          level,
           // 叶子节点
           isLeaf: children.length === 0
         }
         if (children.length > 0) {
           treeNode.children = traversal(children, treeNode)
         }
+        if (level > maxLevel) {
+          maxLevel = level
+        }
+        // 没有关系的 先创建关系
+        if (!levelTreeNodeMap.has(level)) {
+          levelTreeNodeMap.set(level, [])
+        }
+        levelTreeNodeMap.get(level)?.push(treeNode)
         return treeNode
       })
     }
     // 动态加载的时候需要传入父节点
-    const result: TreeNode[] = traversal(data, parent)
-    return result
+    const treeNodes: TreeNode[] = traversal(data, parent)
+    return {
+      maxLevel,
+      levelTreeNodeMap,
+      treeNodes
+    }
   }
   const isExpanded = (node: TreeNode) => expandedKeysSet.value.has(node.key)
   const isDisabled = (node: TreeNode) => !!node.disabled
@@ -128,6 +144,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     () => props.data,
     data => {
       tree.value = createTree(data)
+      console.log(tree.value)
     },
     {
       immediate: true

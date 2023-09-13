@@ -25,6 +25,12 @@ export interface TreeNode {
   rawNode: TreeNodeData
   isLeaf?: boolean
 }
+export interface Tree {
+  // treeNodeMap: Map<TreeKey, TreeNode>
+  levelTreeNodeMap: Map<number, TreeNode[]>
+  treeNodes: TreeNode[]
+  maxLevel: number
+}
 
 export const treeProps = {
   data: {

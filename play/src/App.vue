@@ -185,55 +185,55 @@ interface Tree {
 }
 const data: Tree[] = [
   {
-    label: 'Level one 1',
+    label: '1',
     children: [
       {
-        label: 'Level two 1-1',
+        label: '11',
         children: [
           {
-            label: 'Level three 1-1-1',
+            label: '111',
           },
         ],
       },
     ],
   },
   {
-    label: 'Level one 2',
+    label: '2',
     children: [
       {
-        label: 'Level two 2-1',
+        label: '21',
         children: [
           {
-            label: 'Level three 2-1-1',
+            label: '211',
           },
         ],
       },
       {
-        label: 'Level two 2-2',
+        label: '22',
         children: [
           {
-            label: 'Level three 2-2-1',
+            label: '221',
           },
         ],
       },
     ],
   },
   {
-    label: 'Level one 3',
+    label: '3',
     children: [
       {
-        label: 'Level two 3-1',
+        label: '31',
         children: [
           {
-            label: 'Level three 3-1-1',
+            label: '311',
           },
         ],
       },
       {
-        label: 'Level two 3-2',
+        label: '32',
         children: [
           {
-            label: 'Level three 3-2-1',
+            label: '321',
           },
         ],
       },

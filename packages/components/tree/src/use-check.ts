@@ -12,24 +12,25 @@ export const useCheck = (props: TreeProps, tree: Ref<Tree | undefined>) => {
   const updateCheckedKeys = () => {
     if (!tree.value) return
     const checkedKeys = checkedKeysSet.value
-    const indeterminateKeys = indeterminateKeysSet.value
+    const indeterminateSet = new Set<TreeKey>()
     const { maxLevel, levelTreeNodeMap } = tree.value
-
-    for (let level = maxLevel; level >= 0; --level) {
+    // maxLevel - 1保证有children
+    for (let level = maxLevel - 1; level >= 0; --level) {
       const nodes = levelTreeNodeMap.get(level)
       if (!nodes) continue
       nodes.forEach(node => {
         const children = node.children
         if (children) {
+          // 标记自身和子集是否全部选中
           let allChecked = true
-          let hasChecked = false
+          let hasChekced = false
           for (const childNode of children) {
             const key = childNode.key
             if (checkedKeys.has(key)) {
-              hasChecked = true
-            } else if (indeterminateKeys.has(key)) {
+              hasChekced = true
+            } else if (indeterminateSet.has(key)) {
               allChecked = false
-              hasChecked = true
+              hasChekced = true
               break
             } else {
               allChecked = false
@@ -37,23 +38,24 @@ export const useCheck = (props: TreeProps, tree: Ref<Tree | undefined>) => {
           }
           if (allChecked) {
             checkedKeys.add(node.key)
-          } else if (hasChecked) {
-            indeterminateKeys.add(node.key)
+          } else if (hasChekced) {
+            indeterminateSet.add(node.key)
             checkedKeys.delete(node.key)
           } else {
             checkedKeys.delete(node.key)
-            indeterminateKeys.delete(node.key)
+            indeterminateSet.delete(node.key)
           }
         }
       })
     }
+    indeterminateKeysSet.value = indeterminateSet
   }
 
   const toggleCheck = (node: TreeNode, checked: CheckboxValueType) => {
     const checkedKeys = checkedKeysSet.value
 
     const toggle = (node: TreeNode, checked: CheckboxValueType) => {
-      checked ? checkedKeys.delete(node.key) : checkedKeys.add(node.key)
+      checked ? checkedKeys.add(node.key) : checkedKeys.delete(node.key)
       const children = node.children
       if (children) {
         children.forEach((childNode) => {
@@ -63,7 +65,9 @@ export const useCheck = (props: TreeProps, tree: Ref<Tree | undefined>) => {
         })
       }
     }
+    // 记录自身和自身的所有子集
     toggle(node, checked)
+    // 计算所有选择框的勾选和半选状态
     updateCheckedKeys()
   }
 

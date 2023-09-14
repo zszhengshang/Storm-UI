@@ -23,6 +23,7 @@
     align-items: center;
     height: 100%;
     & > label.#{$namespace}-checkbox {
+      height: 100%;
       margin-right: 8px;
     }
   }

@@ -1,5 +1,5 @@
 import { SetupContext, computed, ref, watch } from "vue";
-import { Tree, TreeEmits, TreeNode, TreeNodeData, TreeOptionProps, TreeProps } from "./tree";
+import { Tree, TreeEmits, TreeKey, TreeNode, TreeNodeData, TreeOptionProps, TreeProps } from "./tree";
 import { useCheck } from "./use-check";
 import type { CheckboxValueType } from '@storm/components/checkbox'
 
@@ -33,6 +33,10 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     isIndeterminate,
     toggleCheck
   } = useCheck(props, tree)
+
+  const valueKey = computed(() => {
+    return props.props.value || 'id'
+  })
   // 要渲染的tree-node
   const flattenTree = computed(() => {
     // 要展开的key
@@ -68,6 +72,8 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
 
   const createTree = (data: TreeNodeData[], parent?: TreeNode) => {
     let maxLevel = 0
+    // 实现默认勾选节点时要用来获取对应节点
+    const treeNodeMap: Map<TreeKey, TreeNode> = new Map()
     // key为level value为nodes的map 在勾选逻辑的时候使用
     const levelTreeNodeMap = new Map<number, TreeNode[]>()
     function traversal(data: TreeNodeData[], parent?: TreeNode) {
@@ -75,6 +81,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
         const children = treeOptions.getChildren(rawNode) || []
         // 有父节点就+1，没有说明就是0
         const level = parent ? parent.level + 1 : 0
+        const value = rawNode[valueKey.value] ?? ''
         const treeNode: TreeNode = {
           key: treeOptions.getKey(rawNode),
           label: treeOptions.getLabel(rawNode),
@@ -92,6 +99,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
         if (level > maxLevel) {
           maxLevel = level
         }
+        treeNodeMap.set(value, treeNode)
         // 没有关系的 先创建关系
         if (!levelTreeNodeMap.has(level)) {
           levelTreeNodeMap.set(level, [])
@@ -104,6 +112,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     const treeNodes: TreeNode[] = traversal(data, parent)
     return {
       maxLevel,
+      treeNodeMap,
       levelTreeNodeMap,
       treeNodes
     }

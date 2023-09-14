@@ -26,7 +26,7 @@ export interface TreeNode {
   isLeaf?: boolean
 }
 export interface Tree {
-  // treeNodeMap: Map<TreeKey, TreeNode>
+  treeNodeMap: Map<TreeKey, TreeNode>
   levelTreeNodeMap: Map<number, TreeNode[]>
   treeNodes: TreeNode[]
   maxLevel: number

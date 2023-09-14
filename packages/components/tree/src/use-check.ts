@@ -1,4 +1,4 @@
-import { Ref, ref } from "vue";
+import { Ref, ref, watch } from "vue";
 import { Tree, TreeKey, TreeNode, TreeProps } from "./tree";
 import type { CheckboxValueType } from '@storm/components/checkbox'
 
@@ -70,6 +70,27 @@ export const useCheck = (props: TreeProps, tree: Ref<Tree | undefined>) => {
     // 计算所有选择框的勾选和半选状态
     updateCheckedKeys()
   }
+  // 初始化默认勾选
+  watch(
+    [() => tree.value, () => props.defaultCheckedKeys],
+    () => {
+      if (tree.value) {
+        const { treeNodeMap } = tree.value
+        if (props.showCheckbox && props.defaultCheckedKeys) {
+          props.defaultCheckedKeys.forEach(key => {
+            // 找到对应的节点 如果没有被勾选执行勾选
+            const node = treeNodeMap.get(key)
+            if (node && !isChecked(node)) {
+              toggleCheck(node, true)
+            }
+          })
+        }
+      }
+    },
+    {
+      immediate: true
+    }
+  )
 
   return {
     isChecked,

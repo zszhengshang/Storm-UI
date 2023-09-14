@@ -42,7 +42,8 @@ const {
   isIndeterminate,
   isDisabled,
   handleNodeClick,
-  handleNodeCheck
+  handleNodeCheck,
+  filter
 } = useTree(props, emit)
 
 provide(treeContextKey, {
@@ -52,5 +53,9 @@ provide(treeContextKey, {
   },
   indent: props.indent,
   icon: props.icon
+})
+
+defineExpose({
+  filter
 })
 </script>

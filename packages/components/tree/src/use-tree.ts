@@ -2,6 +2,7 @@ import { SetupContext, computed, ref, watch } from "vue";
 import { Tree, TreeEmits, TreeKey, TreeNode, TreeNodeData, TreeOptionProps, TreeProps } from "./tree";
 import { useCheck } from "./use-check";
 import type { CheckboxValueType } from '@storm/components/checkbox'
+import { useFilter } from "./use-filter";
 
 function createOptions(props: TreeOptionProps) {
   return {
@@ -33,6 +34,8 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     isIndeterminate,
     toggleCheck
   } = useCheck(props, tree)
+  // 节点过滤相关
+  const { doFilter } = useFilter(props, tree)
 
   const valueKey = computed(() => {
     return props.props.value || 'id'
@@ -147,6 +150,13 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
   //--- 展开收起功能结束
   // 切换勾选
   const handleNodeCheck = (node: TreeNode, checked: CheckboxValueType) => toggleCheck(node, checked)
+  // 过滤节点
+  const filter = (query: string) => {
+    const keys = doFilter(query)
+    if (keys) {
+      expandedKeysSet.value = keys
+    }
+  }
 
   // 监控数据变化 调用格式化方法
   watch(
@@ -168,6 +178,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     isIndeterminate,
     isDisabled,
     handleNodeClick,
-    handleNodeCheck
+    handleNodeCheck,
+    filter
   }
 }

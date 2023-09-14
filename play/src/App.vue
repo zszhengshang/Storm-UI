@@ -138,7 +138,12 @@
     <s-button @click="increase">+</s-button>
   </div>
   <div style="margin: 10px 0 200px;">
-    <s-tree :data="data" show-checkbox :defaultCheckedKeys="['211']" :props="{ value: 'label'}"></s-tree>
+    <s-tree ref="treeRef" :data="data" show-checkbox :defaultExpandedKeys="['1']" :props="{ value: 'label'}" :filter-method="filterMethod">
+      <template #default="node">
+        {{ node.label }}
+      </template>
+    </s-tree>
+    <s-button type="primary" @click="handleFilter">过滤</s-button>
   </div>
 </template>
 
@@ -146,6 +151,7 @@
 import { TrashOutline, Grid, BluetoothOutline, CloudUpload } from '@vicons/ionicons5'
 import { ref } from 'vue';
 import { UploadUserFile } from '@storm/components/upload'
+import { TreeNodeData } from '@storm/components/tree';
 const radio = ref('Option A1')
 const radios = ref(3)
 const checked1 = ref(false)
@@ -180,11 +186,13 @@ const increase = () => {
 }
 
 interface Tree {
+  disabled?: boolean,
   label: string
   children?: Tree[]
 }
 const data: Tree[] = [
   {
+    disabled: true,
     label: '1',
     children: [
       {
@@ -240,4 +248,9 @@ const data: Tree[] = [
     ],
   },
 ]
+const filterMethod = (query: string, node: TreeNodeData) => {
+  return node.label!.includes(query)
+}
+const treeRef = ref()
+const handleFilter = () => treeRef.value.filter('1')
 </script>

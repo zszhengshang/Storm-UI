@@ -1,5 +1,5 @@
 import { Component, PropType } from 'vue'
-export { isArray, isString, NOOP } from '@vue/shared'
+export { isArray, isString, isFunction, NOOP } from '@vue/shared'
 
 export const isUndefined = (val: any): val is undefined => val === undefined
 export const isBoolean = (val: any): val is boolean => typeof val === 'boolean'

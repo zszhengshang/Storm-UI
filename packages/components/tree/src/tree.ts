@@ -51,8 +51,6 @@ export const treeProps = {
     })
   },
   load: Function as PropType<(node: TreeOptionProps) => Promise<TreeOptionProps[]>>,
-  // 是否高亮当前选中节点
-  highlightCurrent: Boolean,
   // 默认展开的节点的 key 的数组
   defaultExpandedKeys: {
     type: Array as PropType<TreeKey[]>,
@@ -67,10 +65,8 @@ export const treeProps = {
     type: Array as PropType<TreeKey[]>,
     default: () => []
   },
-  // 当前选中的节点
-  currentNodeKey: [String, Number] as PropType<TreeKey>,
   // 对树节点进行筛选时执行的方法
-  filterNodeMethod: Function as PropType<FilterMethod>,
+  filterMethod: Function as PropType<FilterMethod>,
   indent: {
     type: Number,
     default: 16

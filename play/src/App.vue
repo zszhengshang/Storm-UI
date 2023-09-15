@@ -252,5 +252,9 @@ const filterMethod = (query: string, node: TreeNodeData) => {
   return node.label === query
 }
 const treeRef = ref()
-const handleFilter = () => treeRef.value.filter('22')
+const handleFilter = () => {
+  const nodes = treeRef.value.getCheckedNodes()
+  console.log(nodes)
+  treeRef.value.setCheckedKeys(['3'])
+}
 </script>

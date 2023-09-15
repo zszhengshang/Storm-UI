@@ -1,5 +1,5 @@
 import { Ref, ref, watch } from "vue";
-import { Tree, TreeKey, TreeNode, TreeProps } from "./tree";
+import { Tree, TreeKey, TreeNode, TreeNodeData, TreeProps } from "./tree";
 import type { CheckboxValueType } from '@storm/components/checkbox'
 
 export const useCheck = (props: TreeProps, tree: Ref<Tree | undefined>) => {
@@ -70,22 +70,87 @@ export const useCheck = (props: TreeProps, tree: Ref<Tree | undefined>) => {
     // 计算所有选择框的勾选和半选状态
     updateCheckedKeys()
   }
+
+  const _setCheckedKeys = (keys: TreeKey[]) => {
+    if (tree?.value) {
+      const { treeNodeMap } = tree.value
+      if (props.showCheckbox && keys) {
+        keys.forEach(key => {
+          // 找到对应的节点 如果没有被勾选执行勾选
+          const node = treeNodeMap.get(key)
+          if (node && !isChecked(node)) {
+            toggleCheck(node, true)
+          }
+        })
+      }
+    }
+  }
+  const getHalfChecked = () => {
+    const halfCheckedNodes: TreeNodeData[] = []
+    const halfCheckedKeys: TreeKey[] = []
+    if (tree?.value && props.showCheckbox) {
+      const { treeNodeMap } = tree.value
+      indeterminateKeysSet.value.forEach(key => {
+        const node = treeNodeMap.get(key)
+        if (node) {
+          halfCheckedKeys.push(key)
+          halfCheckedNodes.push(node.rawNode)
+        }
+      })
+    }
+    return {
+      halfCheckedNodes,
+      halfCheckedKeys
+    }
+  }
+  // 返回勾选的节点 true表示只返回没有子集的节点
+  const getChecked = (leafOnly = false) => {
+    const checkedNodes: TreeNodeData[] = []
+    const keys: TreeKey[] = []
+    if (tree?.value && props.showCheckbox) {
+      const { treeNodeMap } = tree.value
+      checkedKeysSet.value.forEach(key => {
+        const node = treeNodeMap.get(key)
+        if (node && (!leafOnly || (leafOnly && node.isLeaf))) {
+          keys.push(key)
+          checkedNodes.push(node.rawNode)
+        }
+      })
+    }
+    return {
+      checkedKeys: keys,
+      checkedNodes
+    }
+  }
+  // 返回目前被选中的节点所组成的数组
+  const getCheckedNodes = (leafOnly = false): TreeNodeData[] => getChecked(leafOnly).checkedNodes
+  // 返回目前被选中的节点的key所组成的数组
+  const getCheckedKeys = (leafOnly = false): TreeKey[] => getChecked(leafOnly).checkedKeys
+  // 返回目前半选中的节点的所组成的数组
+  const getHalfCheckedNodes = (): TreeNodeData[] => getHalfChecked().halfCheckedNodes
+  // 返回目前半选中的节点的key所组成的数组
+  const getHalfCheckedKeys = (): TreeKey[] => getHalfChecked().halfCheckedKeys
+  // 通过keys设置目前勾选的节点
+  const setCheckedKeys = (keys: TreeKey[]) => {
+    checkedKeysSet.value.clear()
+    indeterminateKeysSet.value.clear()
+    _setCheckedKeys(keys)
+  }
+  // 	通过key设置某个节点的勾选状态
+  const setChecked = (key: TreeKey, checked: boolean) => {
+    if (tree?.value && props.showCheckbox) {
+      const { treeNodeMap } = tree.value
+      const node = treeNodeMap.get(key)
+      if (node) {
+        toggleCheck(node, checked)
+      }
+    }
+  }
   // 初始化默认勾选
   watch(
     [() => tree.value, () => props.defaultCheckedKeys],
     () => {
-      if (tree.value) {
-        const { treeNodeMap } = tree.value
-        if (props.showCheckbox && props.defaultCheckedKeys) {
-          props.defaultCheckedKeys.forEach(key => {
-            // 找到对应的节点 如果没有被勾选执行勾选
-            const node = treeNodeMap.get(key)
-            if (node && !isChecked(node)) {
-              toggleCheck(node, true)
-            }
-          })
-        }
-      }
+      _setCheckedKeys(props.defaultCheckedKeys)
     },
     {
       immediate: true
@@ -95,6 +160,12 @@ export const useCheck = (props: TreeProps, tree: Ref<Tree | undefined>) => {
   return {
     isChecked,
     isIndeterminate,
-    toggleCheck
+    toggleCheck,
+    getCheckedNodes,
+    getCheckedKeys,
+    setCheckedKeys,
+    setChecked,
+    getHalfCheckedNodes,
+    getHalfCheckedKeys
   }
 }

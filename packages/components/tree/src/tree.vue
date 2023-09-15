@@ -45,7 +45,19 @@ const {
   handleNodeClick,
   handleNodeCheck,
   isHiddenExpandIcon,
-  filter
+  // expose
+  filter,
+  getCheckedNodes,
+  getCheckedKeys,
+  setCheckedKeys,
+  setChecked,
+  setExpandedKeys,
+  getHalfCheckedNodes,
+  getHalfCheckedKeys,
+  getNode,
+  expandNode,
+  collapseNode,
+  setData
 } = useTree(props, emit)
 
 provide(treeContextKey, {
@@ -58,6 +70,17 @@ provide(treeContextKey, {
 })
 
 defineExpose({
-  filter
+  filter,
+  getCheckedNodes,
+  getCheckedKeys,
+  setCheckedKeys,
+  setChecked,
+  setExpandedKeys,
+  getHalfCheckedNodes,
+  getHalfCheckedKeys,
+  getNode,
+  expandNode,
+  collapseNode,
+  setData
 })
 </script>

@@ -28,7 +28,7 @@ export const useFilter = (props: TreeProps, tree: Ref<Tree | undefined>) => {
     const traverse = (nodes: TreeNode[]) => {
       nodes.forEach(node => {
         family.push(node)
-        // 满足条件的展开节点 不满足的隐藏节点
+        // 满足条件的展开节点 不满足的没有子节点的隐藏
         if (filterMethod?.(query, node.rawNode)) {
           family.forEach((member) => {
             expandKeysSet.add(member.key)
@@ -37,6 +37,7 @@ export const useFilter = (props: TreeProps, tree: Ref<Tree | undefined>) => {
           // 可能过滤后展示的子节点 父节点需要展开不隐藏
           hiddenNodeKeys.add(node.key)
         }
+        // 深度优先 先把子节点的隐藏展开处理好
         const children = node.children
         if (children) {
           traverse(children)
@@ -49,6 +50,7 @@ export const useFilter = (props: TreeProps, tree: Ref<Tree | undefined>) => {
             let allHidden = true
             for (const childNode of children) {
               if (!hiddenNodeKeys.has(childNode.key)) {
+                // 如果自节点不需要隐藏 那么当前节点箭头也不需要隐藏
                 allHidden = false
                 break
               }

@@ -32,7 +32,13 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
   const {
     isChecked,
     isIndeterminate,
-    toggleCheck
+    toggleCheck,
+    getCheckedNodes,
+    getCheckedKeys,
+    setCheckedKeys,
+    setChecked,
+    getHalfCheckedNodes,
+    getHalfCheckedKeys
   } = useCheck(props, tree)
   // 节点过滤相关
   const { hiddenNodeKeysSet, isHiddenExpandIcon, doFilter } = useFilter(props, tree)
@@ -161,6 +167,16 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
       expandedKeysSet.value = keys
     }
   }
+  // 设置当前展开节点
+  const setExpandedKeys = (keys: TreeKey[]) => {
+    expandedKeysSet.value = new Set(keys)
+  }
+  // 通过key获取节点
+  const getNode = (key: TreeKey) => tree.value?.treeNodeMap.get(key)
+  // 手动设置数据源
+  const setData = (data: TreeNodeData[]) => {
+    tree.value = createTree(data)
+  }
 
   // 监控数据变化 调用格式化方法
   watch(
@@ -183,6 +199,17 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     handleNodeClick,
     handleNodeCheck,
     isHiddenExpandIcon,
-    filter
+    filter,
+    getCheckedNodes,
+    getCheckedKeys,
+    setCheckedKeys,
+    setChecked,
+    setExpandedKeys,
+    getHalfCheckedNodes,
+    getHalfCheckedKeys,
+    getNode,
+    expandNode,
+    collapseNode,
+    setData
   }
 }

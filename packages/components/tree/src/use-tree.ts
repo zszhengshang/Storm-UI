@@ -35,7 +35,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     toggleCheck
   } = useCheck(props, tree)
   // 节点过滤相关
-  const { doFilter } = useFilter(props, tree)
+  const { hiddenNodeKeysSet, isHiddenExpandIcon, doFilter } = useFilter(props, tree)
 
   const valueKey = computed(() => {
     return props.props.value || 'id'
@@ -44,6 +44,8 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
   const flattenTree = computed(() => {
     // 要展开的key
     const expandedKeys = expandedKeysSet.value
+    // 要隐藏的key
+    const hiddenKeys = hiddenNodeKeysSet.value
     // 格式化后的节点
     const nodes = (tree.value && tree.value.treeNodes) || []
     // 用于遍历树的栈
@@ -58,7 +60,9 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
       // 倒着取防止数组塌陷
       const node = stack.pop()
       if (!node) continue
-      flattenNodes.push(node)
+      if (!hiddenKeys.has(node.key)) {
+        flattenNodes.push(node)
+      }
       // 如果节点中的key是需要展开的 把他子节点也放进去继续遍历
       if (expandedKeys.has(node.key)) {
         const children = node.children
@@ -163,7 +167,6 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     () => props.data,
     data => {
       tree.value = createTree(data)
-      console.log(tree.value)
     },
     {
       immediate: true
@@ -179,6 +182,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
     isDisabled,
     handleNodeClick,
     handleNodeCheck,
+    isHiddenExpandIcon,
     filter
   }
 }

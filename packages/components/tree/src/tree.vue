@@ -9,6 +9,7 @@
       :indeterminate="isIndeterminate(node)"
       :disabled="isDisabled(node)"
       :show-checkbox="showCheckbox"
+      :hidden-expand-icon="isHiddenExpandIcon(node)"
       @click="(e: MouseEvent) => handleNodeClick(node, e)"
       @check="handleNodeCheck"
       v-if="isNotEmpty"
@@ -43,6 +44,7 @@ const {
   isDisabled,
   handleNodeClick,
   handleNodeCheck,
+  isHiddenExpandIcon,
   filter
 } = useTree(props, emit)
 

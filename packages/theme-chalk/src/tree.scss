@@ -38,6 +38,10 @@
       color: transparent;
       visibility: hidden;
     }
+    @include when(hidden) {
+      color: transparent;
+      visibility: hidden;
+    }
     &.expanded {
       transform: rotate(90deg);
     }

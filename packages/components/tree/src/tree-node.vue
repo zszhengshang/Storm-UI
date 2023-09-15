@@ -9,6 +9,7 @@
       <s-icon :class="[
         bem.be('node', 'expand-icon'),
         bem.is('leaf', !!node.isLeaf),
+        bem.is('hidden', hiddenExpandIcon),
         {
           expanded: !node.isLeaf && expanded
         }

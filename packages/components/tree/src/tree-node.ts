@@ -27,7 +27,11 @@ export const treeNodeProps = {
   disabled: {
     type: Boolean,
     default: false
-  }
+  },
+  hiddenExpandIcon: {
+    type: Boolean,
+    default: false
+  },
 } as const
 
 export const treeNodeContentProps = {

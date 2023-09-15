@@ -249,8 +249,8 @@ const data: Tree[] = [
   },
 ]
 const filterMethod = (query: string, node: TreeNodeData) => {
-  return node.label!.includes(query)
+  return node.label === query
 }
 const treeRef = ref()
-const handleFilter = () => treeRef.value.filter('1')
+const handleFilter = () => treeRef.value.filter('22')
 </script>

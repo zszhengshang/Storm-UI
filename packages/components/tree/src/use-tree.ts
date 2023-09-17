@@ -20,6 +20,9 @@ function createOptions(props: TreeOptionProps) {
     getChildren(node: TreeNodeData) {
       const children = props.children as string ?? 'children'
       return node[children]
+    },
+    updateLeafState() {
+
     }
   }
 }
@@ -28,6 +31,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
   const tree = ref<Tree | undefined>()
   const treeOptions = createOptions(props.props)
   const expandedKeysSet = ref(new Set(props.defaultExpandedKeys))
+  const loadingKeysSet = ref(new Set<TreeKey>())
   // 可选择树相关
   const {
     isChecked,
@@ -85,9 +89,9 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
 
   const createTree = (data: TreeNodeData[], parent?: TreeNode) => {
     let maxLevel = 0
-    // 实现默认勾选节点时要用来获取对应节点
+    // 根据key获取对应节点
     const treeNodeMap: Map<TreeKey, TreeNode> = new Map()
-    // key为level value为nodes的map 在勾选逻辑的时候使用
+    // 获取level对应的所有节点
     const levelTreeNodeMap = new Map<number, TreeNode[]>()
     function traversal(data: TreeNodeData[], parent?: TreeNode) {
       return data.map(rawNode => {
@@ -104,7 +108,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
           rawNode,
           level,
           // 叶子节点
-          isLeaf: children.length === 0
+          isLeaf: (props.lazy && !!rawNode.isLeaf) ?? children.length === 0
         }
         if (children.length > 0) {
           treeNode.children = traversal(children, treeNode)
@@ -113,8 +117,8 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
           maxLevel = level
         }
         treeNodeMap.set(value, treeNode)
-        // 没有关系的 先创建关系
         if (!levelTreeNodeMap.has(level)) {
+          // 没有关系的 先创建关系
           levelTreeNodeMap.set(level, [])
         }
         levelTreeNodeMap.get(level)?.push(treeNode)
@@ -133,10 +137,38 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
   const isExpanded = (node: TreeNode) => expandedKeysSet.value.has(node.key)
   const isDisabled = (node: TreeNode) => !!node.disabled
   //--- 展开收起功能开始
+  const onLoad = (node: TreeNode) => {
+    const loadingKeys = loadingKeysSet.value
+    // 这个节点的子节点需要异步加载
+    if (!node.children?.length && !node.isLeaf && props.lazy) {
+      if (!loadingKeys.has(node.key)) {
+        loadingKeys.add(node.key)
+        const load = props.load
+        if (load) {
+          const reolve = (children: TreeOptionProps[]) => {
+            if (children.length > 0) {
+              // 修改原来的节点数据
+              node.rawNode.children = children
+              // 更新自定义的node
+              node.children = createTree(children, node).treeNodes
+            } else {
+              node.rawNode.isLeaf = true
+              node.isLeaf = true
+            }
+            // 加载完成后把对应的loading关掉
+            loadingKeys.delete(node.key)
+          }
+          load(node, reolve)
+        }
+      }
+    }
+  }
   const expandNode = (node: TreeNode) => {
     const expandedKeys = expandedKeysSet.value
     expandedKeys.add(node.key)
     emit('nodeExpand', node.rawNode, node)
+    // 异步加载节点
+    onLoad(node)
   }
   const collapseNode = (node: TreeNode) => {
     expandedKeysSet.value.delete(node.key)
@@ -190,6 +222,7 @@ export const useTree = (props: TreeProps, emit: SetupContext<TreeEmits>['emit'])
   )
 
   return {
+    loadingKeysSet,
     flattenTree,
     isNotEmpty,
     isExpanded,

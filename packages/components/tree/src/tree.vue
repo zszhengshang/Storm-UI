@@ -1,5 +1,8 @@
 <template>
-  <div :class="bem.b()">
+  <div
+    :class="bem.b()"
+    :style="{ height: flattenTree.length * 26 + 'px' }"
+  >
     <s-tree-node
       v-for="node in flattenTree"
       :key="node.key"
@@ -10,6 +13,7 @@
       :disabled="isDisabled(node)"
       :show-checkbox="showCheckbox"
       :hidden-expand-icon="isHiddenExpandIcon(node)"
+      :loadingKeys="loadingKeysSet"
       @click="(e: MouseEvent) => handleNodeClick(node, e)"
       @check="handleNodeCheck"
       v-if="isNotEmpty"
@@ -36,6 +40,7 @@ const slots = useSlots()
 
 const bem = createNamespace('tree')
 const {
+  loadingKeysSet,
   flattenTree,
   isNotEmpty,
   isExpanded,

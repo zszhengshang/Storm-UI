@@ -1,5 +1,5 @@
 import { ExtractPropTypes, PropType } from "vue";
-import { TreeNode } from "./tree";
+import { TreeKey, TreeNode } from "./tree";
 import type { CheckboxValueType } from '@storm/components/checkbox'
 import { isBoolean } from "@storm/utils";
 
@@ -32,6 +32,7 @@ export const treeNodeProps = {
     type: Boolean,
     default: false
   },
+  loadingKeys: Object as PropType<Set<TreeKey>>
 } as const
 
 export const treeNodeContentProps = {

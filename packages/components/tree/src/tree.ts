@@ -47,10 +47,11 @@ export const treeProps = {
       value: 'id',
       label: 'label',
       disabled: 'disabled',
-      children: 'children'
+      children: 'children',
+      isLeaf: 'isLeaf'
     })
   },
-  load: Function as PropType<(node: TreeOptionProps) => Promise<TreeOptionProps[]>>,
+  load: Function as PropType<(node: TreeNode, resolve: (data: TreeOptionProps[]) => void) => void>,
   // 默认展开的节点的 key 的数组
   defaultExpandedKeys: {
     type: Array as PropType<TreeKey[]>,
@@ -74,7 +75,7 @@ export const treeProps = {
   icon: iconPropType,
   lazy: {
     type: Boolean,
-    default: false
+    default: undefined
   }
 } as const
 export const treeEmits = {

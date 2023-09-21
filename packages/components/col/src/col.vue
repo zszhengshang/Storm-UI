@@ -1,11 +1,16 @@
 <template>
   <component
-    :tag="tag"
+    :is="tag"
     :class="[
-      bem.b()
+      bem.b(),
+      bem.is('guttered', !!gutter),
+      bem.b(`${span}`),
+      { [`offset-${offset}`]: offset > 0 }
     ]"
     :style="style"
-  ></component>
+  >
+    <slot />
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -17,12 +22,11 @@ defineProps(colProps)
 defineOptions({ name: 'SCol' })
 
 const bem = createNamespace('col')
-const row = inject(rowContextKey, undefined)
-const gutter = row?.gutter
+const { gutter } = inject(rowContextKey, { gutter: computed(() => 0) })
 
 const style = computed(() => {
   const styles: CSSProperties = {}
-  if (gutter?.value) {
+  if (gutter.value) {
     styles.paddingLeft = styles.paddingRight = `${gutter.value / 2}px`
   }
   return styles

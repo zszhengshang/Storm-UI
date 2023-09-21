@@ -11,6 +11,7 @@ import Upload from '@storm/components/upload'
 import Progress from '@storm/components/progress'
 import Tree from '@storm/components/tree'
 import Row from '@storm/components/row'
+import Col from '@storm/components/col'
 import '@storm/theme-chalk/src/index.scss'
 
 const plugins = [
@@ -24,7 +25,8 @@ const plugins = [
   Upload,
   Progress,
   Tree,
-  Row
+  Row,
+  Col
 ]
 const app = createApp(App)
 plugins.forEach(plugin => app.use(plugin))

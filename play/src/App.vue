@@ -329,7 +329,49 @@
     </s-tree>
   </div>
   <div style="margin: 10px 0 200px;">
-    <s-row></s-row>
+    <s-row>
+      <s-col :span="24">24</s-col>
+    </s-row>
+    <s-row>
+      <s-col :span="12">12</s-col>
+      <s-col :span="12">12</s-col>
+    </s-row>
+    <s-row>
+      <s-col :span="8">8</s-col>
+      <s-col :span="8">8</s-col>
+      <s-col :span="8">8</s-col>
+    </s-row>
+    <s-row>
+      <s-col :span="6">6</s-col>
+      <s-col :span="6">6</s-col>
+      <s-col :span="6">6</s-col>
+      <s-col :span="6">6</s-col>
+    </s-row>
+    <s-row>
+      <s-col
+        :span="4"
+        v-for="item in 6"
+        :key="item"
+      >4</s-col>
+    </s-row>
+    <s-row :gutter="20">
+      <s-col
+        :span="6"
+        class="grid-content ep-bg-purple"
+      >6</s-col>
+      <s-col
+        :span="6"
+        class="grid-content ep-bg-purple"
+      >6</s-col>
+      <s-col
+        :span="6"
+        class="grid-content ep-bg-purple"
+      >6</s-col>
+      <s-col
+        :span="6"
+        class="grid-content ep-bg-purple"
+      >6</s-col>
+    </s-row>
   </div>
 </template>
 

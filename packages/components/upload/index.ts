@@ -1,8 +1,7 @@
 import { withInstall } from '@storm/utils'
 import _Upload from './src/upload.vue'
 // 添加install方法
-const Upload = withInstall(_Upload)
-
+export const Upload = withInstall(_Upload)
 export default Upload
 export type * from './src/upload'
 export * from './src/upload-content'

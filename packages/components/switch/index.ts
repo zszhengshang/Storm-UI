@@ -1,8 +1,7 @@
 import { withInstall } from '@storm/utils'
 import _Switch from './src/switch.vue'
 // 添加install方法
-const Switch = withInstall(_Switch)
-
+export const Switch = withInstall(_Switch)
 export default Switch
 export type { SwitchProps, SwitchEmits } from './src/switch'
 

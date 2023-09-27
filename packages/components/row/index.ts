@@ -1,8 +1,7 @@
 import { withInstall } from '@storm/utils'
 import _Row from './src/row.vue'
 // 添加install方法
-const Row = withInstall(_Row)
-
+export const Row = withInstall(_Row)
 export default Row
 export type { RowProps } from './src/row'
 

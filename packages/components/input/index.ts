@@ -1,4 +1,4 @@
-import { withInstall } from '@storm/utils/with-install'
+import { withInstall } from '@storm/utils'
 import _Input from './src/input.vue'
 // 添加install方法
 export const Input = withInstall(_Input)

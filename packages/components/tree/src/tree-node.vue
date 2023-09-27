@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@storm/utils/create';
+import { createNamespace } from '@storm/utils';
 import { treeNodeProps, treeNodeEmits } from './tree-node';
 import { inject, computed } from 'vue';
 import { treeContextKey } from './tree';

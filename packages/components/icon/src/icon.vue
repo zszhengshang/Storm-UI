@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@storm/utils/create'
+import { createNamespace } from '@storm/utils'
 import { iconProps } from './icon'
 import { computed } from 'vue'
 defineOptions({ name: 'SIcon' })

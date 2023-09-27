@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@storm/utils/create';
+import { createNamespace } from '@storm/utils';
 import { switchEmits, switchProps } from './switch';
 import { computed } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@storm/constants';

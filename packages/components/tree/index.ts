@@ -1,4 +1,4 @@
-import { withInstall } from '@storm/utils/with-install'
+import { withInstall } from '@storm/utils'
 import _Tree from './src/tree.vue'
 // 添加install方法
 const Tree = withInstall(_Tree)

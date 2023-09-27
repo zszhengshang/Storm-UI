@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { CSSProperties, computed, provide } from 'vue';
 import { rowContextKey, rowProps } from './row';
-import { createNamespace } from '@storm/utils/create';
+import { createNamespace } from '@storm/utils';
 const props = defineProps(rowProps)
 defineOptions({ name: 'SRow' })
 

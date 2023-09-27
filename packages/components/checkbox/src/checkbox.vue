@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@storm/utils/create';
+import { createNamespace } from '@storm/utils';
 import { checkboxEmits, checkboxProps } from './checkbox';
 import { useCheckbox } from './use-checkbox';
 import { useSlots } from 'vue';

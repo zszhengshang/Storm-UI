@@ -7,3 +7,6 @@ export const isNumber = (val: any): val is number => typeof val === 'number'
 export const isNil = (val: any): val is undefined | null => val == null
 
 export const iconPropType = [String, Object, Function] as PropType<string | Component>
+
+export * from './create'
+export * from './with-install'

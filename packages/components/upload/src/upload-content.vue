@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@storm/utils/create';
+import { createNamespace } from '@storm/utils';
 import { uploadContentProps } from './upload-content';
 import { shallowRef } from 'vue'
 import { UploadRawFile, genFileId, UploadRequestOptions, UploadFile } from './upload';

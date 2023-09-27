@@ -1,4 +1,4 @@
-import { withInstall } from '@storm/utils/with-install'
+import { withInstall } from '@storm/utils'
 import _Row from './src/row.vue'
 // 添加install方法
 const Row = withInstall(_Row)

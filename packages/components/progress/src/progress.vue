@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@storm/utils/create';
+import { createNamespace } from '@storm/utils';
 import { progressProps } from './progress';
 import { computed, CSSProperties } from 'vue';
 defineOptions({ name: 'SProgress' })

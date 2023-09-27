@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@storm/utils/create';
+import { createNamespace } from '@storm/utils';
 import { uploadDraggerEmits, uploadDraggerProps } from './upload-dragger';
 import { inject, ref } from 'vue';
 import { uploadContextKey } from './upload';

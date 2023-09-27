@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@storm/utils/create';
+import { createNamespace } from '@storm/utils';
 import { uploadListEmits, uploadListProps } from './upload-list';
 import SIcon from '@storm/components/icon'
 import SProgress from '@storm/components/progress'

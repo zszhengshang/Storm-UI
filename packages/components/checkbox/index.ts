@@ -1,4 +1,4 @@
-import { withInstall } from '@storm/utils/with-install'
+import { withInstall } from '@storm/utils'
 import _Checkbox from './src/checkbox.vue'
 import _CheckboxGroup from './src/checkbox-group.vue'
 // 添加install方法

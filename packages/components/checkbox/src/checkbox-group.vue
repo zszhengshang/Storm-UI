@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@storm/utils/create';
+import { createNamespace } from '@storm/utils';
 import { checkGroupEmits, checkboxGroupProps, CheckboxGroupValueType, checkboxGroupContextKey } from './checkbox-group';
 import { computed, provide } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@storm/constants';

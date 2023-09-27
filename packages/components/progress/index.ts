@@ -1,4 +1,4 @@
-import { withInstall } from '@storm/utils/with-install'
+import { withInstall } from '@storm/utils'
 import _Progress from './src/progress.vue'
 // 添加install方法
 export const Progress = withInstall(_Progress)

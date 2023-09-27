@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { createNamespace } from '@storm/utils/create';
+import { createNamespace } from '@storm/utils';
 import { radioProps, radioEmits } from './radio';
 import { useRadio } from './use-radio'
 defineOptions({ name: 'SRadio' })

@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { inputNumberEmits, inputNumberProps } from './input-number';
-import { createNamespace } from '@storm/utils/create'
+import { createNamespace } from '@storm/utils'
 import SIcon from '@storm/components/icon'
 import SInput from '@storm/components/input'
 import Decrease from '@storm/components/internal-icon/decrease';

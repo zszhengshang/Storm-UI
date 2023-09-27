@@ -1,6 +1,6 @@
 import { defineComponent, h, inject } from "vue";
 import { treeNodeContentProps } from "./tree-node";
-import { createNamespace } from "@storm/utils/create";
+import { createNamespace } from "@storm/utils";
 import { treeContextKey } from "./tree";
 
 export default defineComponent({

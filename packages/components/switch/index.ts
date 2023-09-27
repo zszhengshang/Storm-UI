@@ -1,4 +1,4 @@
-import { withInstall } from '@storm/utils/with-install'
+import { withInstall } from '@storm/utils'
 import _Switch from './src/switch.vue'
 // 添加install方法
 const Switch = withInstall(_Switch)

@@ -8,7 +8,7 @@
 import { provide, toRefs, reactive } from 'vue';
 import { radioGroupEmits, radioGroupProps, radioGroupKey } from './radio-group'
 import type { RadioGroupProps } from './radio-group'
-import { createNamespace } from '@storm/utils/create';
+import { createNamespace } from '@storm/utils';
 import { UPDATE_MODEL_EVENT } from '@storm/constants';
 defineOptions({ name: 'SRadioGroup' })
 const props = defineProps(radioGroupProps)

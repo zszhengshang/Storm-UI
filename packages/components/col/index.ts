@@ -1,4 +1,4 @@
-import { withInstall } from '@storm/utils/with-install'
+import { withInstall } from '@storm/utils'
 import _Col from './src/col.vue'
 // 添加install方法
 export const Col = withInstall(_Col)

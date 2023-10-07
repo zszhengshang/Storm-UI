@@ -13,5 +13,9 @@ export default series(
   // 删除dist目录
   withTaskName('clean', async () => run('rm -rf ./dist')),
   // 并行打包packages
-  withTaskName('buildPackages', () => run('pnpm run --parallel build --filter ./packages'))
+  withTaskName('buildPackages', () => run('pnpm run --parallel build --filter ./packages')),
+  // 打包全部组件
+  withTaskName('buildFullBundle', () => run('pnpm run build buildFullBundle'))
 )
+
+export * from './tasks'

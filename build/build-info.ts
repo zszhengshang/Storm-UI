@@ -1,5 +1,5 @@
 import path from 'path'
-import { outDir } from './utils/paths'
+import { buildOutput } from './utils/paths'
 
 export const buildConfig = {
   esm: {
@@ -7,7 +7,7 @@ export const buildConfig = {
     format: 'esm',
     output: {
       name: 'es',
-      path: path.resolve(outDir, 'es'),
+      path: path.resolve(buildOutput, 'es'),
     },
     bundle: {
       path: `storm-ui/es`,
@@ -18,7 +18,7 @@ export const buildConfig = {
     format: 'cjs',
     output: {
       name: 'lib',
-      path: path.resolve(outDir, 'lib'),
+      path: path.resolve(buildOutput, 'lib'),
     },
     bundle: {
       path: `storm-ui/lib`,

@@ -1,5 +1,7 @@
 import glob from 'fast-glob'
+import { rollup } from 'rollup'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
+import vue from 'rollup-plugin-vue'
 import commonjs from '@rollup/plugin-commonjs'
 import esbuild from 'rollup-plugin-esbuild'
 import { pkgRoot } from '../utils/paths'
@@ -13,5 +15,20 @@ export const buildModules = async () => {
       onlyFiles: true,
     })
   )
-  console.log(input)
+  const bundle = await rollup({
+    input,
+    plugins: [
+      vue(),
+      nodeResolve(),
+      commonjs(),
+      esbuild({
+        sourceMap: true,
+        target: 'es2018',
+        loaders: {
+          '.vue': 'ts',
+        },
+      }),
+    ],
+    treeshake: false
+  })
 }

@@ -1,0 +1,14 @@
+{
+  "name": "@storm/build",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.5",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "esbuild": "^0.19.4",
+    "rollup": "3.2.0",
+    "rollup-plugin-esbuild": "^6.1.0",
+    "rollup-plugin-vue": "^6.0.0"
+  }
+}

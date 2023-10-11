@@ -7,7 +7,7 @@ export default series(
   parallel(
     withTaskName('buildModules',() => run('pnpm run build buildModules')),
     // 执行packages/theme-chalk目录下的build命令打包样式
-    // withTaskName('buildThemeChalk', () => run('pnpm run -C packages/theme-chalk build'))
+    withTaskName('buildThemeChalk', () => run('pnpm run -C packages/theme-chalk build'))
   )
 )
 

@@ -32,7 +32,7 @@ const buildThemeChalk = () => {
     }))
     .pipe(dest(distFolder)) // 输出到指定目录
 }
-
+// 把打包好的css文件拷贝到/dist/storm-ui/theme-chalk目录下
 const copyThemeChalkBundle = () => {
   return src(`${distFolder}/**`).pipe(dest(distBundle))
 }

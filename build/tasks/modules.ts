@@ -9,21 +9,23 @@ import { excludeFiles } from '../utils'
 
 export const buildModules = async () => {
   const input = excludeFiles(
-    await glob('**/*.{ts,vue}', {
+    await glob('components/button/src/button.vue', {
       cwd: pkgRoot,
       absolute: true, // 返回绝对路径
       onlyFiles: true,
     })
   )
+  console.log(input)
   const bundle = await rollup({
     input,
     plugins: [
       nodeResolve(),
       vue(),
-      ts(),
+      // ts(),
       commonjs(),
     ],
     treeshake: false,
     external: ['vue']
   })
+  console.log(bundle, 111)
 }

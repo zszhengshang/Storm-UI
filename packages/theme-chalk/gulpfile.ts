@@ -4,7 +4,7 @@ import gulpSass from 'gulp-sass'
 import dartSass from 'sass'
 import autoprefixer from 'gulp-autoprefixer'
 import cleanCSS from 'gulp-clean-css'
-import { suOutput } from '../../build/utils/paths'
+import { suOutput } from '../../build/src/utils/paths'
 import consola from 'consola'
 import chalk from 'chalk'
 

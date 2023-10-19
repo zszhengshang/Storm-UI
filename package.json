@@ -7,8 +7,9 @@
   ],
   "scripts": {
     "dev": "pnpm -C play dev",
-    "doc:dev": "pnpm -C docs dev",
-    "build": "gulp --require @esbuild-kit/cjs-loader -f build/gulpfile.ts"
+    "docs:dev": "pnpm -C docs dev",
+    "clean": "rimraf dist",
+    "build": "pnpm run -C build start"
   },
   "dependencies": {
     "@storm/components": "workspace:*",

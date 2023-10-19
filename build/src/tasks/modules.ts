@@ -1,18 +1,20 @@
 import glob from 'fast-glob'
 import { rollup } from 'rollup'
+import VueMacros from 'unplugin-vue-macros/rollup'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import VueMacros from 'unplugin-vue-macros/rollup'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import esbuild from 'rollup-plugin-esbuild'
-import { pkgRoot } from '../utils/paths'
-import { excludeFiles } from '../utils'
+import { excludeFiles, pkgRoot, suRoot, writeBundles } from '../utils'
+import { buildConfigEntries } from '../build-info'
+
+import type { OutputOptions } from 'rollup'
 
 export const buildModules = async () => {
   const input = excludeFiles(
-    await glob('components/button/src/button.vue', {
-      cwd: pkgRoot,
+    await glob('**/*.{js,ts,vue}', {
+      cwd: pkgRoot, // 执行目录
       absolute: true, // 返回绝对路径
       onlyFiles: true,
     })
@@ -25,10 +27,10 @@ export const buildModules = async () => {
         setupSFC: false,
         plugins: {
           vue: vue({
-            isProduction: false,
+            isProduction: false
           }),
-          vueJsx: vueJsx(),
-        },
+          vueJsx: vueJsx()
+        }
       }),
       nodeResolve({
         extensions: ['.mjs', '.js', '.json', '.ts'],
@@ -43,7 +45,20 @@ export const buildModules = async () => {
       }),
     ],
     treeshake: false,
-    external: ['vue']
+    external: (id) => /^(@v|vue)/.test(id)
   })
-  console.log(bundle, 111)
+  await writeBundles(
+    bundle,
+    buildConfigEntries.map(([module, config]): OutputOptions => {
+      return {
+        format: config.format,
+        dir: config.output.path,
+        exports: module === 'cjs' ? 'named' : undefined,
+        preserveModules: true, // 生成的模块按照原目录结构生成
+        preserveModulesRoot: suRoot,
+        sourcemap: true,
+        entryFileNames: `[name].${config.ext}` // 生成单独的chunk文件
+      }
+    })
+  )
 }

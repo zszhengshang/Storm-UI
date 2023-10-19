@@ -1,14 +1,15 @@
 import { series, parallel } from 'gulp'
-import { run, withTaskName } from './utils'
+import { run, runTask, suOutput, withTaskName } from './src'
+import { mkdir } from 'fs/promises'
 
 export default series(
-  // 删除dist目录
-  withTaskName('clean', () => run('rm -rf dist')),
+  // 删除打包目录
+  withTaskName('clean', () => run('pnpm run clean')),
+  // 递归创建目录
+  withTaskName('createOutput', () => mkdir(suOutput, { recursive: true })),
   parallel(
-    withTaskName('buildModules',() => run('pnpm run build buildModules')),
-    // 执行packages/theme-chalk目录下的build命令打包样式
-    withTaskName('buildThemeChalk', () => run('pnpm run -C packages/theme-chalk build'))
+    runTask('buildModules')
   )
 )
 
-export * from './tasks'
+export * from './src'

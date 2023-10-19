@@ -104,7 +104,7 @@ import { computed, useSlots, shallowRef, onMounted, nextTick, watch, useAttrs } 
 import { UPDATE_MODEL_EVENT } from '@storm/constants';
 import { useFocus } from './use-focus'
 import SIcon from '@storm/components/icon'
-import CircleClose from '@storm/components/internal-icon/circle-close'
+import CircleClose from '@storm/components/internal-icon/circle-close.vue'
 
 type TargetElement = HTMLInputElement | HTMLTextAreaElement
 

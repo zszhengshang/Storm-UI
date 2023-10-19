@@ -54,9 +54,9 @@ import { createNamespace } from '@storm/utils';
 import { uploadListEmits, uploadListProps } from './upload-list';
 import SIcon from '@storm/components/icon'
 import SProgress from '@storm/components/progress'
-import Document from '@storm/components/internal-icon/document'
-import CircleCheck from '@storm/components/internal-icon/circle-check'
-import circleClose from '@storm/components/internal-icon/circle-close'
+import Document from '@storm/components/internal-icon/document.vue'
+import CircleCheck from '@storm/components/internal-icon/circle-check.vue'
+import circleClose from '@storm/components/internal-icon/circle-close.vue'
 import { UploadFile } from './upload';
 defineOptions({ name: 'SUploadList' })
 defineProps(uploadListProps)

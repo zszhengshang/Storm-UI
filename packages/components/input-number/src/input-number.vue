@@ -54,8 +54,8 @@ import { inputNumberEmits, inputNumberProps } from './input-number';
 import { createNamespace } from '@storm/utils'
 import SIcon from '@storm/components/icon'
 import SInput from '@storm/components/input'
-import Decrease from '@storm/components/internal-icon/decrease';
-import Increase from '@storm/components/internal-icon/increase';
+import Decrease from '@storm/components/internal-icon/decrease.vue';
+import Increase from '@storm/components/internal-icon/increase.vue';
 import { computed, onMounted, ref } from 'vue'
 import { isNumber, isNil, isUndefined } from '@storm/utils'
 import { UPDATE_MODEL_EVENT } from '@storm/constants';

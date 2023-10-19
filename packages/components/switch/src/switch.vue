@@ -31,7 +31,7 @@ import { switchEmits, switchProps } from './switch';
 import { computed } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@storm/constants';
 import SIcon from '@storm/components/icon'
-import LoadingComponent from '@storm/components/internal-icon/loading'
+import LoadingComponent from '@storm/components/internal-icon/loading.vue'
 defineOptions({ name: 'SSwitch' })
 const props = defineProps(switchProps)
 const emit = defineEmits(switchEmits)

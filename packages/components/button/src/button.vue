@@ -44,7 +44,7 @@
 import { createNamespace } from '@storm/utils'
 import { buttonEmits, buttonProps } from './button'
 import SIcon from '@storm/components/icon'
-import LoadingComponent from '@storm/components/internal-icon/loading'
+import LoadingComponent from '@storm/components/internal-icon/loading.vue'
 defineOptions({
   name: 'SButton',
   inheritAttrs: false

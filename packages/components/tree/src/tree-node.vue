@@ -20,7 +20,7 @@
         :class="bem.is('loading', isLoading)"
         v-if="isLoading"
       >
-        <Loading />
+        <LoadingComponent />
       </s-icon>
       <s-checkbox
         :model-value="checked"
@@ -43,8 +43,8 @@ import { treeContextKey } from './tree';
 import STreeNodeContent from './tree-node-content'
 import SIcon from '@storm/components/icon'
 import SCheckbox from '@storm/components/checkbox'
-import Right from '@storm/components/internal-icon/right'
-import Loading from '@storm/components/internal-icon/loading'
+import Right from '@storm/components/internal-icon/right.vue'
+import LoadingComponent from '@storm/components/internal-icon/loading.vue'
 import type { CheckboxValueType } from '@storm/components/checkbox'
 defineOptions({ name: 'STreeNode' })
 const props = defineProps(treeNodeProps)

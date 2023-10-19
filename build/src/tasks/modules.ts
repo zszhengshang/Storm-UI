@@ -1,8 +1,6 @@
 import glob from 'fast-glob'
 import { rollup } from 'rollup'
-import VueMacros from 'unplugin-vue-macros/rollup'
 import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import esbuild from 'rollup-plugin-esbuild'
@@ -22,16 +20,7 @@ export const buildModules = async () => {
   const bundle = await rollup({
     input,
     plugins: [
-      VueMacros({
-        setupComponent: false,
-        setupSFC: false,
-        plugins: {
-          vue: vue({
-            isProduction: false
-          }),
-          vueJsx: vueJsx()
-        }
-      }),
+      vue(),
       nodeResolve({
         extensions: ['.mjs', '.js', '.json', '.ts'],
       }),
@@ -41,6 +30,7 @@ export const buildModules = async () => {
         target: 'es2018',
         loaders: {
           '.vue': 'ts',
+          '.js': 'jsx'
         },
       }),
     ],

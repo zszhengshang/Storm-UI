@@ -420,7 +420,7 @@ interface Tree {
 }
 const data: Tree[] = [
   {
-    label: '1',
+    label: '1'
   },
   {
     label: '2',

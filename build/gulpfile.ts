@@ -8,7 +8,8 @@ export default series(
   // 递归创建目录
   withTaskName('createOutput', () => mkdir(suOutput, { recursive: true })),
   parallel(
-    runTask('buildModules')
+    runTask('buildModules'),
+    runTask('buildFullBundle')
   )
 )
 

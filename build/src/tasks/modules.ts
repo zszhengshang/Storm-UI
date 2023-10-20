@@ -5,7 +5,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import esbuild from 'rollup-plugin-esbuild'
 import { excludeFiles, pkgRoot, suRoot, writeBundles } from '../utils'
-import { buildConfigEntries } from '../build-info'
+import { target, buildConfigEntries } from '../build-info'
 
 import type { OutputOptions } from 'rollup'
 
@@ -27,12 +27,12 @@ export const buildModules = async () => {
       commonjs(),
       esbuild({
         sourceMap: true,
-        target: 'es2018',
+        target,
         loaders: {
           '.vue': 'ts',
           '.js': 'jsx'
-        },
-      }),
+        }
+      })
     ],
     treeshake: false,
     external: (id) => /^(@v|vue)/.test(id)

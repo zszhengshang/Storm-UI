@@ -39,7 +39,8 @@ const buildFull = async (minify: boolean) => {
   const bundle = await rollup({
     input: path.resolve(suRoot, 'index.ts'),
     plugins,
-    treeshake: true
+    treeshake: true,
+    external: ['vue']
   })
   await writeBundles(bundle, [
     {

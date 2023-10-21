@@ -14,28 +14,27 @@ export const buildModules = async () => {
     await glob('**/*.{js,ts,vue}', {
       cwd: pkgRoot, // 执行目录
       absolute: true, // 返回绝对路径
-      onlyFiles: true,
+      onlyFiles: true, // 只查找文件
     })
   )
   const bundle = await rollup({
     input,
     plugins: [
-      vue(),
+      vue(), // 把Vue SFC编译为js代码
       nodeResolve({
-        extensions: ['.mjs', '.js', '.json', '.ts'],
+        extensions: ['.js', '.ts'] // 解析node_modules
       }),
-      commonjs(),
-      esbuild({
+      commonjs(),// 用于将CommonJS模块转换为 ES6
+      esbuild({ // 把ts转换为js
         sourceMap: true,
         target,
         loaders: {
-          '.vue': 'ts',
-          '.js': 'jsx'
+          '.vue': 'ts' // vue文件被插件解析为js代码后 文件还是.vue结尾，把它看作ts文件
         }
       })
     ],
     treeshake: false,
-    external: (id) => /^(@v|vue)/.test(id)
+    external: (id) => /^(@v|vue)/.test(id) // 将依赖排除在构建产物之外
   })
   await writeBundles(
     bundle,
@@ -44,7 +43,7 @@ export const buildModules = async () => {
         format: config.format,
         dir: config.output.path,
         exports: module === 'cjs' ? 'named' : undefined,
-        preserveModules: true, // 生成的模块按照原目录结构生成
+        preserveModules: true, // 构建产物将保持与源码一样的文件结构
         preserveModulesRoot: suRoot,
         sourcemap: true,
         entryFileNames: `[name].${config.ext}` // 生成单独的chunk文件

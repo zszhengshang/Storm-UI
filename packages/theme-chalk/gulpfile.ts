@@ -11,7 +11,7 @@ import chalk from 'chalk'
 const distFolder = resolve(__dirname, 'dist')
 const distBundle = resolve(suOutput, 'theme-chalk')
 
-// 把theme-chalk的scss文件都拷贝到 /dist/storm-ui/theme-chalk目录下
+// 把theme-chalk的scss文件都拷贝到 dist/storm-ui/theme-chalk目录下
 const copyThemeChalkSource = () => {
   return src(resolve(__dirname, 'src/**')).pipe(
     dest(resolve(distBundle, 'src'))
@@ -32,7 +32,7 @@ const buildThemeChalk = () => {
     }))
     .pipe(dest(distFolder)) // 输出到指定目录
 }
-// 把打包好的css文件拷贝到/dist/storm-ui/theme-chalk目录下
+// 把打包好的css文件拷贝到dist/storm-ui/theme-chalk目录下
 const copyThemeChalkBundle = () => {
   return src(`${distFolder}/**`).pipe(dest(distBundle))
 }

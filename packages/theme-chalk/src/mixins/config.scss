@@ -8,7 +8,31 @@ $state-prefix: "is-";
   margin: 0;
   box-sizing: border-box;
 }
-
 body {
   line-height: 1.4;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  &-thumb {
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+// TransitionGroup动画
+.#{$namespace}-list-enter-active,
+.#{$namespace}-list-leave-active {
+  transition: all 1s;
+}
+.#{$namespace}-list-enter-from,
+.#{$namespace}-list-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+.#{$namespace}-list-leave-active {
+  position: absolute !important;
 }

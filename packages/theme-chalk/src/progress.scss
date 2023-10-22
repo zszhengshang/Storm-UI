@@ -1,0 +1,82 @@
+@use "./mixins/mixins.scss" as *;
+@use "./common/var.scss" as *;
+
+@include b(progress) {
+  display: flex;
+  align-items: center;
+  width: 350px;
+  line-height: 1;
+  margin-bottom: 15px;
+  @include e(text) {
+    min-width: 50px;
+    line-height: 1;
+    margin-left: 5px;
+    font-size: $font-size-base;
+    color: $color-text;
+  }
+  @include when(success) {
+    .#{$namespace}-progress-bar__inner {
+      background-color: $color-success;
+    }
+    .#{$namespace}-progress__text {
+      color: $color-success;
+    }
+  }
+  @include when(warning) {
+    .#{$namespace}-progress-bar__inner {
+      background-color: $color-warning;
+    }
+    .#{$namespace}-progress__text {
+      color: $color-warning;
+    }
+  }
+  @include when(fail) {
+    .#{$namespace}-progress-bar__inner {
+      background-color: $color-danger;
+    }
+    .#{$namespace}-progress__text {
+      color: $color-danger;
+    }
+  }
+}
+@include b(progress-bar) {
+  flex-grow: 1;
+  @include e(outer) {
+    position: relative;
+    height: 6px;
+    border-radius: 100px;
+    background-color: $color-bg-disabled;
+    overflow: hidden;
+  }
+  @include e(inner) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    border-radius: 100px;
+    white-space: nowrap;
+    background-color: $color-primary;
+    transition: width 0.6s ease;
+    @include m(indeterminate) {
+      transform: translateZ(0);
+      animation: indeterminate 3s infinite;
+    }
+  }
+  @include e(inner-text) {
+    margin: 0 5px;
+    font-size: 12px;
+    color: $color-white;
+  }
+}
+@keyframes indeterminate {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}

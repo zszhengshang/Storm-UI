@@ -1,0 +1,124 @@
+@use "./mixins/mixins.scss" as *;
+@use "./common/var.scss" as *;
+
+@include b(upload) {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
+  @include e(input) {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    opacity: 0;
+  }
+  @include e(tip) {
+    padding-top: 8px;
+    font-size: 12px;
+    color: $color-text;
+  }
+  @include when(drag) {
+    display: block;
+  }
+  @include e(text) {
+    font-size: 14px;
+    color: $color-text;
+  }
+}
+@include b(upload-list) {
+  position: relative;
+  line-height: 1.8;
+  padding-top: 10px;
+  @include e(item) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 0 4px;
+    font-size: $font-size-base;
+    color: $color-text;
+    border-radius: 4px;
+    transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+    cursor: pointer;
+    &:hover {
+      background-color: $color-bg-disabled;
+      .#{$namespace}-upload-list--close {
+        display: inline-flex;
+      }
+    }
+    @include when(success) {
+      .#{$namespace}-upload-list--icon-success {
+        display: inline-flex;
+      }
+      &:hover {
+        .#{$namespace}-upload-list__item-info {
+          color: $color-primary;
+        }
+        .#{$namespace}-upload-list--icon-success {
+          display: none;
+        }
+      }
+    }
+    .#{$namespace}-progress {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+    }
+  }
+  @include e(item-info) {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - 16px);
+  }
+  @include e(item-name) {
+    display: inline-flex;
+    align-items: center;
+  }
+  @include e(item-file-name) {
+    padding-left: 6px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  @include e(item-status) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @include m(icon-success) {
+    display: none;
+    color: $color-success;
+  }
+  @include m(close) {
+    display: none;
+    opacity: 0.75;
+    &:hover {
+      color: $color-primary;
+      opacity: 1;
+    }
+  }
+}
+@include b(upload-dragger) {
+  padding: 40px 10px;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px dashed $color-border;
+  background-color: $color-white;
+  &:hover {
+    border-color: $color-primary;
+  }
+  @include when(dragover) {
+    padding: 39px 9px;
+    border: 2px dashed $color-primary;
+  }
+  .#{$namespace}-icon--upload {
+    margin-bottom: 15px;
+    font-size: 60px;
+    color: $color-placeholder-text;
+  }
+}

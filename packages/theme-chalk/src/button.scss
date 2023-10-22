@@ -1,4 +1,4 @@
-@use "./mixins//mixins.scss" as *;
+@use "./mixins/mixins.scss" as *;
 @use "common/var.scss" as *;
 
 @include b(button) {
@@ -9,10 +9,10 @@
   height: 32px;
   line-height: 1;
   padding: 8px 15px;
-  font-size: 14px;
+  font-size: $font-size-base;
   font-weight: 500;
   color: $color-text;
-  border: 1px solid #dcdfe6;
+  border: 1px solid $color-border;
   border-radius: 4px;
   background-color: $color-white;
   outline: none;
@@ -30,6 +30,9 @@
     display: inline-flex;
     align-items: center;
   }
+  @include when(round) {
+    border-radius: 20px;
+  }
   @include m(small) {
     height: 24px;
     padding: 5px 11px;
@@ -44,8 +47,8 @@
     &,
     &:hover,
     &:focus {
+      opacity: 0.7;
       cursor: not-allowed;
-      @include button-variant(#a8abb2, #e4e7ed, #ffffff);
     }
   }
   @include when(loading) {
@@ -62,56 +65,71 @@
       background-color: rgba(255, 255, 255, 0.3);
     }
   }
-  @include when(round) {
-    border-radius: 20px;
+  @include m(default) {
+    &:not(.is-disabled) {
+      &:hover {
+        color: $color-primary;
+        border-color: $color-primary;
+      }
+    }
   }
   @include m(primary) {
     @include button-variant($color-white, $color-primary, $color-primary);
-    @include when(disabled) {
-      &,
-      &:hover,
-      &:focus {
-        @include button-variant($color-white, #a0cfff, #a0cfff);
+    &:not(.is-disabled) {
+      &:hover {
+        box-shadow: $color-primary-hover-shadow;
+      }
+      &:active {
+        border-color: $color-primary-active;
+        background-color: $color-primary-active;
       }
     }
   }
   @include m(success) {
     @include button-variant($color-white, $color-success, $color-success);
-    @include when(disabled) {
-      &,
-      &:hover,
-      &:focus {
-        @include button-variant($color-white, #b3e19d, #b3e19d);
+    &:not(.is-disabled) {
+      &:hover {
+        box-shadow: $color-success-hover-shadow;
+      }
+      &:active {
+        border-color: $color-success-active;
+        background-color: $color-success-active;
       }
     }
   }
   @include m(warning) {
     @include button-variant($color-white, $color-warning, $color-warning);
-    @include when(disabled) {
-      &,
-      &:hover,
-      &:focus {
-        @include button-variant($color-white, #f3d19e, #f3d19e);
+    &:not(.is-disabled) {
+      &:hover {
+        box-shadow: $color-warning-hover-shadow;
+      }
+      &:active {
+        border-color: $color-warning-active;
+        background-color: $color-warning-active;
       }
     }
   }
   @include m(danger) {
     @include button-variant($color-white, $color-danger, $color-danger);
-    @include when(disabled) {
-      &,
-      &:hover,
-      &:focus {
-        @include button-variant($color-white, #fab6b6, #fab6b6);
+    &:not(.is-disabled) {
+      &:hover {
+        box-shadow: $color-danger-hover-shadow;
+      }
+      &:active {
+        border-color: $color-danger-active;
+        background-color: $color-danger-active;
       }
     }
   }
   @include m(info) {
     @include button-variant($color-white, $color-info, $color-info);
-    @include when(disabled) {
-      &,
-      &:hover,
-      &:focus {
-        @include button-variant($color-white, #c8c9cc, #c8c9cc);
+    &:not(.is-disabled) {
+      &:hover {
+        box-shadow: $color-info-hover-shadow;
+      }
+      &:active {
+        border-color: $color-info-active;
+        background-color: $color-info-active;
       }
     }
   }

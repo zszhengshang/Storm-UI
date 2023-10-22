@@ -1,0 +1,49 @@
+@use "./mixins/mixins.scss" as *;
+@use "./common/var.scss" as *;
+
+@include b(tree) {
+  font-size: $font-size-base;
+  color: $color-text;
+  background-color: $color-white;
+  @include e(empty) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+  }
+}
+@include b(tree-node) {
+  height: 26px;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-bg-disabled;
+  }
+  @include e(content) {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    & > label.#{$namespace}-checkbox {
+      height: 100%;
+      margin-right: 8px;
+    }
+  }
+  @include e(expand-icon) {
+    padding: 6px;
+    font-size: 12px;
+    color: $color-placeholder-text;
+    transform: rotate(0);
+    transition: transform 0.3s ease-in-out;
+    box-sizing: content-box;
+    @include when(leaf) {
+      color: transparent;
+      visibility: hidden;
+    }
+    @include when(hidden) {
+      color: transparent;
+      visibility: hidden;
+    }
+    &.expanded {
+      transform: rotate(90deg);
+    }
+  }
+}

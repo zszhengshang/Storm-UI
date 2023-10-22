@@ -1,0 +1,114 @@
+@use "./mixins/mixins.scss" as *;
+@use "./common/var.scss" as *;
+
+@include b(input) {
+  display: inline-flex;
+  vertical-align: middle;
+  width: 100%;
+  line-height: 32px;
+  font-size: $font-size-base;
+  &:not(&.is-disabled):hover {
+    .#{$namespace}-input__prefix {
+      color: $color-primary;
+    }
+    .#{$namespace}-input__suffix {
+      color: $color-primary;
+    }
+  }
+  @include e(wrapper) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 1px 11px;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px $color-border inset;
+    background-color: $color-white;
+    transition: box-shadow 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    cursor: text;
+    @include when(focus) {
+      box-shadow: 0 0 0 1px $color-primary inset;
+    }
+  }
+  @include e(prefix) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-right: 8px;
+    color: $color-placeholder-text;
+    transition: color 0.2s;
+  }
+  @include e(suffix) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-left: 8px;
+    color: $color-placeholder-text;
+    transition: color 0.2s;
+  }
+  @include e(inner) {
+    flex-grow: 1;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    outline: none;
+    font-size: $font-size-base;
+    color: $color-text;
+    border: none;
+    background: none;
+    -webkit-appearance: none;
+    &::-webkit-input-placeholder {
+      color: $color-placeholder-text;
+    }
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+  }
+  @include e(clear) {
+    cursor: pointer;
+  }
+  @include when(disabled) {
+    cursor: not-allowed;
+    .#{$namespace}-input__wrapper {
+      background-color: $color-bg-disabled;
+    }
+    .#{$namespace}-input__inner {
+      color: $color-border;
+      cursor: not-allowed;
+    }
+  }
+}
+
+@include b(textarea) {
+  display: inline-block;
+  vertical-align: bottom;
+  width: 100%;
+  font-size: $font-size-base;
+  @include e(inner) {
+    display: block;
+    width: 100%;
+    min-height: 30px;
+    line-height: 1.5;
+    padding: 5px 11px;
+    font-size: $font-size-base;
+    color: $color-text;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 0 0 0 1px $color-border inset;
+    background-image: none;
+    background-color: $color-white;
+    transition: box-shadow 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -webkit-appearance: none;
+    resize: vertical;
+    &::-webkit-input-placeholder {
+      color: $color-placeholder-text;
+    }
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px $color-primary inset;
+    }
+  }
+}

@@ -1,12 +1,27 @@
-$color-black: #000000;
+$color-black: #27243f;
 $color-white: #ffffff;
-$color-text: #606266;
-$color-primary: #409eff;
+$color-text: #616998;
+$color-primary: #2970f6;
 $color-success: #67c23a;
-$color-warning: #e6a23c;
-$color-danger: #f56c6c;
-$color-info: #909399;
+$color-warning: #ff8047;
+$color-danger: #f0667f;
+$color-info: #50a9eb;
 
-$color-placeholder-text: #a8abb2;
-$color-border-disabled: #e4e7ed;
+$color-primary-active: #104fcd;
+$color-success-active: #71ab54;
+$color-warning-active: #e07d51;
+$color-danger-active: #c9687a;
+$color-info-active: #60a2d3;
+
+$color-primary-hover-shadow: 0 4px 10px 0 rgba(41, 112, 246, 0.3);
+$color-success-hover-shadow: 0 4px 10px 0 rgba(103, 194, 58, 0.3);
+$color-warning-hover-shadow: 0 4px 10px 0 rgba(255, 128, 71, 0.3);
+$color-danger-hover-shadow: 0 4px 10px 0 rgba(240, 102, 127, 0.3);
+$color-info-hover-shadow: 0 4px 10px 0 rgba(80, 169, 235, 0.3);
+// 占位和文本禁用后的颜色
+$color-placeholder-text: #ccd1de;
+$color-border: #b5bdc7;
+// 禁用的背景色
 $color-bg-disabled: #f5f7fa;
+
+$font-size-base: 14px;

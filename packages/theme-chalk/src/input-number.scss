@@ -1,0 +1,50 @@
+@use "./mixins/mixins.scss" as *;
+@use "./common/var.scss" as *;
+
+@include b(input-number) {
+  position: relative;
+  display: inline-flex;
+  width: 150px;
+  line-height: 30px;
+  @include e(controls) {
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    font-size: 13px;
+    background-color: $color-bg-disabled;
+    user-select: none;
+    cursor: pointer;
+    &.is-disabled {
+      color: $color-border;
+      cursor: not-allowed;
+    }
+  }
+  @include e(decrease) {
+    left: 1px;
+    border-radius: 4px 0 0 4px;
+    border-right: 1px solid $color-border;
+  }
+  @include e(increase) {
+    right: 1px;
+    border-radius: 0 4px 4px 0;
+    border-left: 1px solid $color-border;
+  }
+  @include when(disabled) {
+    .#{$namespace}-input-number__controls {
+      color: $color-border;
+      cursor: not-allowed;
+    }
+  }
+  .#{$namespace}-input__wrapper {
+    padding: 0 42px;
+  }
+  .#{$namespace}-input__inner {
+    line-height: 1;
+    text-align: center;
+  }
+}

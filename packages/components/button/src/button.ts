@@ -1,4 +1,5 @@
-import { Component, ExtractPropTypes, PropType } from "vue"
+import { iconPropType } from "@storm/utils"
+import { ExtractPropTypes, PropType } from "vue"
 
 export type Size = 'small' | 'default' | 'large'
 export type Type = 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'default'
@@ -7,20 +8,17 @@ export type NativeType = 'button' | 'submit' | 'reset'
 export const buttonProps = {
   size: {
     type: String as PropType<Size>,
-    default: 'default'
+    default: ''
   },
   type: {
     type: String as PropType<Type>,
-    validator: (val: string) => {
-      return ['primary', 'success', 'warning', 'danger', 'info', 'default'].includes(val)
-    },
     default: 'default'
   },
   round: Boolean,
   loading: Boolean,
   disabled: Boolean,
   icon: {
-    type: [String, Object, Function] as PropType<string | Component>
+    type: iconPropType
   },
   nativeType: {
     type: String as PropType<NativeType>,

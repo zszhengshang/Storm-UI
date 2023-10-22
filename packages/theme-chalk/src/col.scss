@@ -1,0 +1,25 @@
+@use "./mixins/mixins.scss" as *;
+@use "sass:math";
+
+[class*="#{$namespace}-col-"] {
+  @include when(guttered) {
+    display: block;
+    min-height: 1px;
+  }
+}
+.#{$namespace}-col-0 {
+  display: none;
+  @include when(guttered) {
+    display: none;
+  }
+}
+// math.div表示取余
+@for $i from 0 through 24 {
+  .#{$namespace}-col-#{$i} {
+    max-width: (math.div(1, 24) * $i * 100) * 1%;
+    flex: 0 0 (math.div(1, 24) * $i * 100) * 1%;
+  }
+  .#{$namespace}-col-offset-#{$i} {
+    margin-left: (math.div(1, 24) * $i * 100) * 1%;
+  }
+}

@@ -36,6 +36,7 @@ export default defineConfig({
       ]
     }
   },
+  base: '/Storm-UI-docs',
   vite: {
     plugins: [MarkdownPreview()],
   }

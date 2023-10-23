@@ -13,15 +13,13 @@
     @click="handleClick"
   >
     <template v-if="loading">
-      <slot
-        name="loading"
-        v-if="$slots.loading"
-      />
-      <s-icon
-        :class="bem.is('loading', loading)"
-        v-else
-      >
-        <LoadingComponent />
+
+      <s-icon :class="bem.is('loading', loading)">
+        <slot
+          name="loading"
+          v-if="$slots.loading"
+        />
+        <LoadingComponent v-else />
       </s-icon>
     </template>
     <s-icon v-else-if="icon || $slots.icon">

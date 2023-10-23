@@ -1,9 +1,7 @@
 {
-  "name": "@storm/components",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+	"name": "@storm/components",
+	"version": "1.0.0",
+	"description": "all components",
+	"main": "index.ts",
+	"module": "index.ts"
 }

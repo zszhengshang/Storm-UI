@@ -4,9 +4,6 @@ layout: home
 hero:
   name: Storm-UI
   text: 一个vue3的组件库
-  image:
-    src: /logo.jpg
-    alt: Kitty
   actions:
     - theme: brand
       text: 快速开始

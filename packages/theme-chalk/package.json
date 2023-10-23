@@ -1,8 +1,8 @@
 {
   "name": "@storm/theme-chalk",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Storm component chalk theme.",
+  "main": "index.css",
   "scripts": {
     "build": "gulp --require @esbuild-kit/cjs-loader -f gulpfile.ts"
   },

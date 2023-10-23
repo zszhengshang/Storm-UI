@@ -1,0 +1,13 @@
+{
+	"name": "storm-ui",
+  "version": "1.0.0",
+	"description": "A Component Library for Vue 3",
+	"keywords": [
+		"storm-ui",
+		"component library",
+		"ui framework",
+		"ui",
+		"vue"
+	],
+	"main": "index.ts"
+}

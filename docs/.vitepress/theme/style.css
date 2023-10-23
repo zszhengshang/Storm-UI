@@ -1,0 +1,11 @@
+:root {
+  --vp-home-hero-name-color: #2970f6;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.vp-doc h2 {
+  border-top: 0 none;
+}

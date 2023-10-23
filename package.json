@@ -7,9 +7,11 @@
   ],
   "scripts": {
     "dev": "pnpm -C play dev",
-    "docs:dev": "pnpm -C docs dev",
     "clean": "rimraf dist",
-    "build": "pnpm run -C build start"
+    "build": "pnpm run -C build start",
+    "docs:dev": "pnpm -C docs dev",
+    "docs:build": "pnpm -C docs build",
+    "docs:serve": "pnpm -C docs serve"
   },
   "dependencies": {
     "@storm/components": "workspace:*",

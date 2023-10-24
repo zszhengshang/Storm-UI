@@ -131,7 +131,7 @@ import { CloseCircle, CreateSharp, CheckmarkCircleSharp, BluetoothOutline, Cloud
 
 ## Button API
 
-### Button Attributes
+### Attributes
 
 | 属性名      | 说明               | 类型                | 可选值                                     | 默认值  |
 | :---------- | :----------------- | :------------------ | :----------------------------------------- | :------ |
@@ -140,5 +140,13 @@ import { CloseCircle, CreateSharp, CheckmarkCircleSharp, BluetoothOutline, Cloud
 | round       | 是否为圆角按钮     | `boolean`           | --                                         | false   |
 | loading     | 是否为加载中状态   | `boolean`           | --                                         | false   |
 | disabled    | 按钮是否为禁用状态 | `boolean`           | --                                         | false   |
-| icon        | 图标组件           | `string/ Component` | --                                         | --      |
+| icon        | 图标组件           | `string / Component` | --                                         | --      |
 | native-type | 原生 type 属性     | `string`            | button / submit / reset                    | button  |
+
+### Slots
+
+| 插槽名  | 说明             |
+| :------ | :--------------- |
+| default | 自定义默认内容   |
+| loading | 自定义加载中组件 |
+| icon    | 自定义图标组件   |

@@ -1,56 +1,46 @@
 # Icon 图标
 
-storm-ui 推荐使用 xicons 作为图标库
+storm-ui 推荐使用 [xicons](https://www.xicons.org) 作为图标库
 
-```
-$ pnpm install @vicons/ionicons5
-```
+## 基础用法
 
-## 使用图标
-
-- 如果你想像用例一样直接使用，你需要全局注册组件，才能够直接在项目中使用。
-
-<script setup lang="ts">
-import { CashOutline } from '@vicons/ionicons5'
-</script>
-
-<s-icon color="red" size="40">
-  <CashOutline />
-</s-icon>
-<s-icon color="green" size="40">
-  <CashOutline />
-</s-icon>
-<s-icon color="blue" size="40">
-  <CashOutline />
-</s-icon>
-
-<s-icon color="red" size="60">
-  <CashOutline />
-</s-icon>
-<s-icon color="green" size="60">
-  <CashOutline />
-</s-icon>
-<s-icon color="blue" size="60">
-  <CashOutline />
-</s-icon>
-
-```vue
-<script setup lang="ts">
-import { CashOutline } from '@vicons/ionicons5'
-</script>
-
+```vue preview
 <template>
-<s-icon color="red" size="40">
-  <CashOutline />
-</s-icon>
+	<s-icon size="40">
+		<AddCircleSharp />
+	</s-icon>
+	<s-icon size="40" color="#409EFC">
+		<ArrowDownCircleSharp />
+	</s-icon>
+	<s-icon size="28" color="#409EFC">
+		<CheckmarkCircleSharp />
+	</s-icon>
 </template>
+<script setup>
+import { AddCircleSharp, ArrowDownCircleSharp, CheckmarkCircleSharp } from "@vicons/ionicons5"
+</script>
 ```
 
-## API
+## 直接使用 SVG 图标
 
-### Icon Props
+```vue preview
+<template>
+	<div style="font-size: 30px">
+		<CloudDownload style="width: 1em; margin-right: 8px" />
+		<Images style="width: 1em; margin-right: 8px" />
+		<Mail style="width: 1em;" />
+	</div>
+</template>
+<script setup>
+import { CloudDownload, Images, Mail } from "@vicons/ionicons5"
+</script>
+```
 
-| 名称   | 类型            | 默认值    | 说明    |
-| ------ | --------------  | -------- | ------- |
-| color  | string          | undefind | 图标颜色 |
-| size   | number \| string | undefind | 图标大小 |
+## Icon API
+
+### Attributes
+
+| 属性名 | 说明             | 类型                | 默认值       |
+| :----- | :--------------- | :------------------ | :----------- |
+| color  | svg 的 fill 颜色 | `string`            | --           |
+| size   | SVG 图标的大小   | `number` / `string` | 继承字体大小 |

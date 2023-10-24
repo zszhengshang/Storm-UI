@@ -27,7 +27,7 @@ export const inputProps = {
   prefixIcon: {
     type: iconPropType
   },
-  maxLength: [String, Number]
+  maxlength: [String, Number]
 }
 
 export const inputEmits = {

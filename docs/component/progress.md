@@ -80,3 +80,9 @@ const decrease = () => {
 | height     | 进度条的高度                 | `number`  | --     | 6      |
 | disabled   | 是否禁用单选框               | `boolean` | false  |        |
 | name       | 等价于原生 input `name` 属性 | `string`  | --     |        |
+
+### Slots
+
+| 属性名  | 说明       |
+| :------ | :--------- |
+| default | 自定义内容 |

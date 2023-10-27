@@ -1,4 +1,4 @@
-import { Ref, ref, watch } from "vue";
+import { Ref, getCurrentInstance, ref, watch } from "vue";
 import { Tree, TreeKey, TreeNode, TreeNodeData, TreeProps } from "./tree";
 import type { CheckboxValueType } from '@storm/components/checkbox'
 
@@ -9,8 +9,10 @@ export const useCheck = (props: TreeProps, tree: Ref<Tree | undefined>) => {
   const isChecked = (node: TreeNode) => checkedKeysSet.value.has(node.key)
   const isIndeterminate = (node: TreeNode) => indeterminateKeysSet.value.has(node.key)
 
+  const { emit } = getCurrentInstance()!
+
   const updateCheckedKeys = () => {
-    if (!tree.value) return
+    if (!tree.value || !props.showCheckbox) return
     const checkedKeys = checkedKeysSet.value
     const indeterminateSet = new Set<TreeKey>()
     const { maxLevel, levelTreeNodeMap } = tree.value
@@ -20,7 +22,7 @@ export const useCheck = (props: TreeProps, tree: Ref<Tree | undefined>) => {
       if (!nodes) continue
       nodes.forEach(node => {
         const children = node.children
-        if (children) {
+        if (children?.length) {
           // 标记自身和子集是否全部选中
           let allChecked = true
           let hasChekced = false
@@ -69,6 +71,7 @@ export const useCheck = (props: TreeProps, tree: Ref<Tree | undefined>) => {
     toggle(node, checked)
     // 计算所有选择框的勾选和半选状态
     updateCheckedKeys()
+    emit('checkChange', node, checked)
   }
 
   const _setCheckedKeys = (keys: TreeKey[]) => {

@@ -1,13 +1,12 @@
 import DefaultTheme from 'vitepress/theme'
-import SIcon from '@storm/components/icon'
-import SButton from '@storm/components/button'
+import StormUI from 'storm-ui'
 import '@storm/theme-chalk/src/index.scss'
+import './style.css'
 
 export default {
   ...DefaultTheme,
   enhanceApp({ app }) {
     // 在vitepress中注册全局组件
-    app.use(SIcon)
-    app.use(SButton)
+    app.use(StormUI)
   }
 }

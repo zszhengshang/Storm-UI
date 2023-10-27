@@ -5,7 +5,7 @@
       bem.b(),
       bem.is('guttered', !!gutter),
       bem.b(`${span}`),
-      { [`offset-${offset}`]: offset > 0 }
+      { [bem.b(`offset-${offset}`)]: offset > 0 }
     ]"
     :style="style"
   >

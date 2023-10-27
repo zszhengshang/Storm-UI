@@ -1,12 +1,8 @@
 {
-  "name": "@storm/utils",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "gulp"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+	"name": "@storm/utils",
+	"private": true,
+	"main": "index.ts",
+	"peerDependencies": {
+		"vue": "^3.3.4"
+	}
 }

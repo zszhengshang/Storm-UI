@@ -30,12 +30,32 @@ export default defineConfig({
           text: '基础组件',
           items: [
             { text: 'Button 按钮', link: '/component/button' },
-            { text: 'Icon 图标', link: '/component/icon' }
+            { text: 'Icon 图标', link: '/component/icon' },
+            { text: 'Layout 布局', link: '/component/layout' }
+          ]
+        },
+        {
+          text: '表单组件',
+          items: [
+            { text: 'Checkbox 多选框', link: '/component/checkbox' },
+            { text: 'Input 输入框', link: '/component/input' },
+            { text: 'Input Number 输入框', link: '/component/input-number' },
+            { text: 'Radio 单选框', link: '/component/radio' },
+            { text: 'Switch 开关', link: '/component/switch' },
+            { text: 'Upload 上传', link: '/component/upload' },
+          ]
+        },
+        {
+          text: '数据展示',
+          items: [
+            { text: 'Progress 进度条', link: '/component/progress' },
+            { text: 'Tree 树形控件', link: '/component/tree' },
           ]
         }
       ]
     }
   },
+  base: '/Storm-UI-docs',
   vite: {
     plugins: [MarkdownPreview()],
   }

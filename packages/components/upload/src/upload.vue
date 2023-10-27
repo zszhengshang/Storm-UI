@@ -63,6 +63,8 @@ onBeforeUnmount(() => {
 defineExpose({
   abort,
   clearFiles,
-  submit
+  submit,
+  handleStart,
+  handleRemove
 })
 </script>

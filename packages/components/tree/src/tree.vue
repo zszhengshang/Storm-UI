@@ -1,7 +1,7 @@
 <template>
   <div
     :class="bem.b()"
-    :style="{ height: flattenTree.length * 26 + 'px' }"
+    :style="{ height: flattenTree.length ? flattenTree.length * 26 + 'px' : undefined }"
   >
     <s-tree-node
       v-for="node in flattenTree"

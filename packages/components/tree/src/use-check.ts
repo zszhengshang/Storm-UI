@@ -12,7 +12,7 @@ export const useCheck = (props: TreeProps, tree: Ref<Tree | undefined>) => {
   const { emit } = getCurrentInstance()!
 
   const updateCheckedKeys = () => {
-    if (!tree.value) return
+    if (!tree.value || !props.showCheckbox) return
     const checkedKeys = checkedKeysSet.value
     const indeterminateSet = new Set<TreeKey>()
     const { maxLevel, levelTreeNodeMap } = tree.value
@@ -22,7 +22,7 @@ export const useCheck = (props: TreeProps, tree: Ref<Tree | undefined>) => {
       if (!nodes) continue
       nodes.forEach(node => {
         const children = node.children
-        if (children) {
+        if (children?.length) {
           // 标记自身和子集是否全部选中
           let allChecked = true
           let hasChekced = false
